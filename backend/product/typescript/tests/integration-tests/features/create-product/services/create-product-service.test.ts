@@ -129,14 +129,14 @@ describe("create product", () => {
         
 
         expect(rows.length).toEqual(1)
-        expect(rows[0].name).toEqual("name")
-        expect(rows[0].description).toEqual("description")
+        expect(rows[0].name).toEqual("name1")
+        expect(rows[0].description).toEqual("description1")
         expect(rows[0].stock).toEqual(1)
         // console.log("rows.length:", rows.length);
         
         // await expect(result).resolves.toEqual({"description": "description", "name": "name", "stock": 1})
-        expect(result.name).toEqual("name")
-        expect(result.description).toEqual("description")
+        expect(result.name).toEqual("name1")
+        expect(result.description).toEqual("description1")
         expect(result.stock).toEqual(1)
         
 

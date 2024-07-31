@@ -3,4 +3,4 @@ import { DeleteProductByIdController } from "../controllers/delete-product-by-id
 import { authenticate } from "../../../middlewares/auth_middleware";
 
 export const deleteProductByIdRouter = express.Router()
-deleteProductByIdRouter.post("/", DeleteProductByIdController.deleteProductById, authenticate)
+deleteProductByIdRouter.delete("/api/v1/products", DeleteProductByIdController.deleteProductById, authenticate)

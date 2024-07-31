@@ -3,4 +3,4 @@ import { UpdateProductByIdController } from "../controllers/update-product-by-id
 import { authenticate } from "../../../middlewares/auth_middleware";
 
 export const updateProductByIdRoute = express.Router()
-updateProductByIdRoute.post("/", UpdateProductByIdController.updateProductById, authenticate)
+updateProductByIdRoute.patch("/api/v1/products", UpdateProductByIdController.updateProductById, authenticate)

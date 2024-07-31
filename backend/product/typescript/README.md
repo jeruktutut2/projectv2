@@ -71,6 +71,7 @@ npx jest tests/unit-tests/features/create-product/services/create-product-servic
 npx jest tests/integration-tests/features/update-product-by-id/services/update-product-by-id.test.ts  --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/delete-product-by-id/services/delete-product-by-id-service.test.ts --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/search-product/services/search-product-service.test.ts  --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/create-product/create-product.test.ts --runInBand --detectOpenHandles
 https://stackoverflow.com/questions/62214949/testing-grpc-functions  
 
 ## elasticsearch  
@@ -83,3 +84,7 @@ npm install @elastic/elasticsearch
 ## redis
 https://www.npmjs.com/package/ioredis  
 npm i ioredis  
+
+## supertest
+npm install --save-dev supertest @types/supertest  
+https://www.npmjs.com/package/supertest  

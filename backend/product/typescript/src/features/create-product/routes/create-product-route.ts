@@ -3,4 +3,4 @@ import { CreateProductController } from "../controllers/create-product-controlle
 import { authenticate } from "../../../middlewares/auth_middleware";
 
 export const createProductRouter = express.Router()
-createProductRouter.post("/", CreateProductController.createProduct, authenticate)
+createProductRouter.post("/api/v1/products", CreateProductController.createProduct, authenticate)
