@@ -1,0 +1,63 @@
+create database:
+CREATE DATABASE project_carts;
+SHOW DATABASES;
+USE project_orders;
+SHOW TABLES;
+
+create table user:
+CREATE TABLE users (
+  	id int NOT NULL AUTO_INCREMENT,
+  	username varchar(50) NOT NULL,
+  	email varchar(100) NOT NULL,
+  	PRIMARY KEY (id),
+  	UNIQUE KEY username_unique_index (username),
+  	UNIQUE KEY email_unique_index (email)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO user (id,username,email) VALUES (1,"username1","email1@email.com"),(2,"username2","email2@email.com"),(3,"username3","email3@email.com");
+
+DROP TABLE IF EXISTS user;
+
+create table products:
+CREATE TABLE products (
+  	id int NOT NULL AUTO_INCREMENT,
+	user_id int NOT NULL,
+	name varchar(255) NOT NULL,
+	description TEXT NOT NULL,
+	stock MEDIUMINT NOT NULL,
+  	PRIMARY KEY (id),
+	FOREIGN KEY fk_products_users(user_id) REFERENCES users(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO products (id, user_id, name, description, stock) VALUES (1, 1, "name1", "description1", 1), (2, 2, "name2", "description2", 2), (3, 3, "name3", "description3", 3);
+
+DROP TABLE IF EXISTS products;
+
+create table orders:
+CREATE TABLE orders (
+  	id int NOT NULL AUTO_INCREMENT,
+	user_id int NOT NULL,
+    total DECIMAL(18,2) NOT NULL,
+    created_at BIGINT NOT NULL,
+  	PRIMARY KEY (id),
+	FOREIGN KEY fk_orders_users(user_id) REFERENCES users(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO orders(id, user_id, total) VALUES (1, 1, 10, 1722390867657), (2, 2, 20, 1722390867657), (3, 3, 30, 1722390867657);
+
+DROP TABLE IF EXISTS orders;
+
+create table order_items:
+CREATE TABLE orders_items (
+  	id int NOT NULL AUTO_INCREMENT,
+    order_id INT NOT NULL,
+	-- user_id int NOT NULL,
+    -- total DECIMAL(18,2) NOT NULL,
+    product_id INT NOT NULL,
+    price DECIMAL(18,2) NOT NULL,
+    quantity TINYINT NOT NULL,
+    total DECIMAL(18,2) NOT NULL,
+  	PRIMARY KEY (id),
+	FOREIGN KEY fk_order_items_orders(order_id) REFERENCES orders(id),
+    FOREIGN KEY fk_order_items_products(product_id) REFERENCES products(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
