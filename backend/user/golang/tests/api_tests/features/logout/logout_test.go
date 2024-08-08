@@ -22,7 +22,6 @@ import (
 
 type LogoutTestSuite struct {
 	suite.Suite
-	// mysqlUtil utils.MysqlUtil
 	ctx       context.Context
 	sessionId string
 	redisUtil utils.RedisUtil
@@ -36,14 +35,11 @@ func TestLogoutTestSuite(t *testing.T) {
 
 func (sut *LogoutTestSuite) SetupSuite() {
 	sut.T().Log("SetupSuite")
-	// sut.mysqlUtil = utils.NewMysqlConnection("root", "12345", "localhost:3309", "user", 10, 10, 10, 10)
 	sut.redisUtil = utils.NewRedisConnection("localhost", "6380", 0)
 	sut.validate = setups.SetValidator()
 	sut.e = echo.New()
 	sut.e.Use(echomiddleware.Recover())
 	sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.PrintRequestResponseLog)
-	// sut.e.Use(middlewares.GetSessionIdUser)
 	routes.LogoutRoute(sut.e, sut.redisUtil)
 }
 
@@ -73,7 +69,6 @@ func (sut *LogoutTestSuite) TestLogoutRowsAffectedNotOneInternalServerError() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println("responseBody:", responseBody)
 	sut.Equal(responseBody["data"], nil)
 	errorsResponseBody := responseBody["errors"].([]interface{})
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
@@ -87,7 +82,6 @@ func (sut *LogoutTestSuite) TestLogoutSuccess() {
 	initialize.SetDataRedis(sut.redisUtil.GetClient(), sut.ctx, sut.sessionId, "value", time.Duration(0))
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/users/logout", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	// req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set("X-REQUEST-ID", "requestId")
 	req.Header.Set("X-SESSION-USER-ID", sut.sessionId)
 	rec := httptest.NewRecorder()
@@ -100,7 +94,6 @@ func (sut *LogoutTestSuite) TestLogoutSuccess() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println("responseBody:", responseBody)
 	data := responseBody["data"].(map[string]interface{})
 	sut.Equal(data["message"], "logout success")
 	sut.Equal(responseBody[""], nil)

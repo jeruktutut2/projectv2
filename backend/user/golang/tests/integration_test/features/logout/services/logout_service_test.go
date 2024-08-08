@@ -48,7 +48,6 @@ func (sut *LogoutServiceTestSuite) BeforeTest(suiteName, testName string) {
 func (sut *LogoutServiceTestSuite) TestLogoutRowsAffectedNotOneInternalServerError() {
 	sut.T().Log("TestLogoutRowsAffectedNotOneInternalServerError")
 	err := sut.logoutService.Logout(sut.ctx, sut.requestId, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
@@ -59,7 +58,6 @@ func (sut *LogoutServiceTestSuite) TestLogoutSuccess() {
 	err := sut.logoutService.Logout(sut.ctx, sut.requestId, sut.sessionId)
 	sut.Equal(err, nil)
 	_, err = initialize.GetDataRedis(sut.redisUtil.GetClient(), sut.ctx, sut.sessionId)
-	// fmt.Println("result:", result, err)
 	sut.Equal(err, redis.Nil)
 }
 

@@ -7,7 +7,6 @@ import { createDataProducts, createTableProducts, deleteTableProducts, getDataPr
 describe("create product POST /api/v1/products", () => {
 
     beforeAll(async () => {
-        // await supertest(web)
         await MysqlUtil.getInstance()
         await ElasticsearchUtil.getInstance()
     })
@@ -27,19 +26,12 @@ describe("create product POST /api/v1/products", () => {
 
     it("should return error bad request when request body is empty", async() => {
         const response = await supertest(web)
-        // .set("Content-Type", "application/json")
-        // .set("X-REQUEST-ID", "requestId")
         .post("/api/v1/products")
         .set("Content-Type", "application/json")
         .set("X-REQUEST-ID", "requestId")
         .send({})
-        // console.log("response.status:", response.status);
         expect(response.status).toEqual(400)
-        // console.log("response.body.data:", response.body.data);
-        // expect(response.body.data).toBeDefined()
         expect(response.body.data).toEqual(null)
-        // console.log("response.body.errors:", response.body.errors);
-        // expect(response.body.errors).toBeDefined()
         expect(response.body.errors).toEqual([
             { field: 'userId', message: 'userId is required' },
             { field: 'name', message: 'name is required' },
@@ -61,11 +53,8 @@ describe("create product POST /api/v1/products", () => {
             description: "description1",
             stock: 1
         })
-        // console.log("response.status:", response.status);
         expect(response.status).toEqual(500)
-        // console.log("response.body.data:", response.body.data);
         expect(response.body.data).toEqual(null)
-        // console.log("response.body.errors:", response.body.errors);
         expect(response.body.errors).toEqual([ { field: 'message', message: 'internal server error' } ])
     }, 60000)
     
@@ -84,11 +73,8 @@ describe("create product POST /api/v1/products", () => {
             description: "description1",
             stock: 1
         })
-        // console.log("response.status:", response.status);
         expect(response.status).toEqual(201)
-        // console.log("response.body.data:", response.body.data);
         expect(response.body.data).toEqual({ name: 'name1', description: 'description1', stock: 1 })
-        // console.log("response.body.errors:", response.body.errors);
         expect(response.body.errors).toEqual(null)
         
         const [rows] = await  getDataProduct(poolConnection, 1)

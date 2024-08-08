@@ -7,7 +7,6 @@ export class GetProductByIdController {
     static async getProductById(req: Request, res: Response, next: NextFunction) {
         const requestId = req.get("X-REQUEST-ID") ?? ""
         try {
-            // const requestId = req.get("X-REQUEST-ID") ?? ""
             const getProductByIdRequest: GetProductByIdRequest = req.body as GetProductByIdRequest
             const getProductByIdResponse = await GetProductByIdService.getProductById(requestId, Number(getProductByIdRequest.id))
             const response = setResponse(getProductByIdResponse, null)

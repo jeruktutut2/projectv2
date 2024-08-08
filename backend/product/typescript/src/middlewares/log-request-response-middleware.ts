@@ -5,30 +5,30 @@ import { CustomResponse } from "../types/custom-response-type";
 
 export const printRequestResponseLog = async (req: Request, res: CustomResponse, next: NextFunction) => {
     const requestId =  req.get("X-REQUEST-ID") ?? ""
-    // if (!requestId) {
-    //     // const errorMessages = setErrorMessages()
-    //     return response.status(400).json(setResponse(null, setErrorMessages("aaa")))
-    //     // next()
-    // }
-    // const logRequestBody: Record<string, any> = request.body
-    // delete logRequestBody["password"]
     const requestLog = {requestTime: new Date().toISOString(), app: "project-backend-product", method: req.method, requestId: requestId, host: req.hostname, urlPath: req.path, protocol: req.protocol, body: req.body, userAgent: req.headers["user-agent"], remoteAddr: req.ip, forwardedFor: req.header("x-forwarded-for")}
-    // log := "responseTime": " + time.Now().String() + ", "app": "project-backend-user", "requestId": " + requestId + ", "response":  + responseBody 
     console.log(requestLog);
     if (!requestId) {
         const errorMessages = setErrorMessages("cannot find requestId")
         return res.status(400).json(setResponse(null, errorMessages))
     }
 
+    const originalSend = res.send;
+    const originalStatus = res.status
+    let responseBody: any
+    let responseStatus: any
+    res.send = function (body?: any): Response {
+        responseBody = body
+        return originalSend.call(this, body);
+    };
+    res.status = function(statusCode: number): Response {
+        responseStatus = statusCode
+        return originalStatus.call(this, statusCode)
+    }
+
     next()
 
-    const originalJson = res.json.bind(res)
-    res.json = (body: any): Response => {
-        res.body = body
-        return originalJson(body)
-    }
-    const responseLog = {responseTime: new Date().toISOString(), app: "project-backend-product", requestId: requestId, response: res.body }
-    // log := `{"responseTime": "` + time.Now().String() + `", "app": "project-backend-product", "requestId": "` + requestId + `", "response": ` + responseBody + `}`
-    console.log(responseLog);
-    
+    res.on("finish", () => {
+        const responseLog = {responseTime: new Date().toISOString(), app: "project-backend-product", requestId: requestId, responseStatus: responseStatus, response: responseBody }
+        console.log(responseLog);
+    })
 }

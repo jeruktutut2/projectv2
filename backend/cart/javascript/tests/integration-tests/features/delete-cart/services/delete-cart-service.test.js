@@ -37,7 +37,7 @@ describe("delete cart", () => {
         await mysqlUtil.closeConnection(mysqlUtil.mysqlPool)
     })
 
-    it("should return validate error when request is emptu", async() => {
+    it("should return validate error when request is empty", async() => {
         request = {
             id: 0,
             userId: 0,

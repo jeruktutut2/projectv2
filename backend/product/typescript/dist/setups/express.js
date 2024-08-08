@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.web = void 0;
+const express_1 = __importDefault(require("express"));
+const log_request_response_middleware_1 = require("../middlewares/log-request-response-middleware");
+const create_product_route_1 = require("../features/create-product/routes/create-product-route");
+const delete_product_by_id_route_1 = require("../features/delete-product-by-id/routes/delete-product-by-id-route");
+const get_product_by_id_route_1 = require("../features/get-product-by-id/routes/get-product-by-id-route");
+const search_product_route_1 = require("../features/search-product/routes/search-product-route");
+const update_product_by_id_route_1 = require("../features/update-product-by-id/routes/update-product-by-id-route");
+exports.web = (0, express_1.default)();
+exports.web.use(express_1.default.json());
+exports.web.use(log_request_response_middleware_1.printRequestResponseLog);
+exports.web.use(create_product_route_1.createProductRouter);
+exports.web.use(delete_product_by_id_route_1.deleteProductByIdRouter);
+exports.web.use(get_product_by_id_route_1.getProductByIdRouter);
+exports.web.use(search_product_route_1.searchProductRoute);
+exports.web.use(update_product_by_id_route_1.updateProductByIdRoute);

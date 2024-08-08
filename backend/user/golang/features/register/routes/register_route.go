@@ -16,6 +16,5 @@ func RegisterRoute(e *echo.Echo, mysqlUtil utils.MysqlUtil, validate *validator.
 	userRepository := repositories.NewUserRepository()
 	registerService := services.NewRegisterService(mysqlUtil, validate, bcryptHelper, userRepository)
 	registerController := controllers.NewRegisterController(registerService)
-	// e.POST("/api/v1/users/register", registerController.Register, middlewares.GetRequestId, middlewares.GetSessionIdUser)
 	e.POST("/api/v1/users/register", registerController.Register, middlewares.PrintRequestResponseLog)
 }

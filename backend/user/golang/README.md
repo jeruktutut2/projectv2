@@ -31,3 +31,13 @@ if you want to use bridge network (default), you no need to put --network projec
 
 ## test grpc golang
 https://github.com/grpc/grpc-go/issues/1786  
+
+## run curl test
+chmod +x register_curl.sh
+./register_curl.sh
+
+chmod +x login_curl.sh
+./login_curl.sh
+
+chmod +x logout_curl.sh
+./logout_curl.sh

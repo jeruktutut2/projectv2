@@ -4,7 +4,7 @@ import initializeCart from "../../../../initialize/cart.js";
 import initializeProduct from "../../../../initialize/product.js";
 import initializeUser from "../../../../initialize/user.js";
 
-describe("", () => {
+describe("update quantity", () => {
 
     const requestId = "requestId"
     let request = {
@@ -78,7 +78,6 @@ describe("", () => {
         await initializeCart.createDataCart(connection)
 
         const  [rows1] = await initializeCart.getDataCart(connection, 1)
-        // console.log("rows1:", rows1);
         expect(rows1[0].quantity).toEqual(1)
 
         const result = await updateQuantityService.updateQuantity(requestId, request)

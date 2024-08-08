@@ -8,7 +8,6 @@ export class UpdateProductByIdController {
     static async updateProductById(req: Request, res: Response, next: NextFunction) {
         const requestId = req.get("X-REQUEST-ID") ?? ""
         try {
-            // const requestId = req.get("X-REQUEST-ID") ?? ""
             const updateProductByIdRequest: UpdateProductByIdRequest = req.body as UpdateProductByIdRequest
             const updateProductByIdResponse = await UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)
             const response = setResponse(updateProductByIdResponse, null)

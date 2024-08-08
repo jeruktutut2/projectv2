@@ -5,7 +5,6 @@ import { MysqlUtil } from "../../../utils/mysql-utils";
 import { errorHandler } from "../../../exceptions/error-exception";
 import { UpdateProductByIdRepository } from "../repositories/update-product-by-id-repository";
 import { ResponseException } from "../../../exceptions/response-exception";
-// import { setErrorMessages } from "../../../exceptions/exception";
 import { Product } from "../models/product";
 import { ElasticsearchUtil } from "../../../utils/elasticsearch-util";
 import { Validation } from "../../../validation/validation";
@@ -41,21 +40,12 @@ export class UpdateProductByIdService {
                 throw new ResponseException(500, setErrorMessages(errorMessage), errorMessage)
             }
 
-            // ElasticsearchUtil.getClient().update({
-            //     index: "products",
-            //     id: updateProductByIdRequest.id,
-            //     doc: {
-
-            //     }
-            // })
-
             await ElasticsearchUtil.getClient().update({
                 index: "products",
                 id: updateProductByIdRequest.id.toString(),
                 doc: {
                     name: updateProductByIdRequest.name,
                     description: updateProductByIdRequest.description
-                //   new_field: 'new value'
                 }
             })
 

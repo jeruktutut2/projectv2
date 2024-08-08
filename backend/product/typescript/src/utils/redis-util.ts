@@ -6,9 +6,6 @@ export class RedisUtil {
 
     private constructor() {
         console.log(new Date().toISOString(), " redis: connecting to redis: " + process.env.PROJECT_USER_REDIS_HOST + ":" + process.env.PROJECT_USER_REDIS_PORT);
-        // const host: string = process.env.PROJECT_USER_REDIS_HOST ?? ""
-        // const port: number = Number(process.env.PROJECT_USER_REDIS_PORT) 
-        // const db: number = Number(process.env.PROJECT_USER_REDIS_DATABASE) 
         RedisUtil.client = new Redis({
             host: process.env.PROJECT_USER_REDIS_HOST ?? "",
             port: Number(process.env.PROJECT_USER_REDIS_PORT),

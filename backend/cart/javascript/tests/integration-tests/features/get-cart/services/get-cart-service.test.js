@@ -49,7 +49,6 @@ describe("", () => {
         await initializeProduct.createDataProduct(connection)
         await initializeCart.createDataCart(connection)
         const result = await getCartService.getCart(requestId, userId)
-        // console.log("result:", result);
         expect(result.length).toEqual(2)
     })
 })

@@ -8,7 +8,6 @@ export class SearchProductController {
     static async searchProduct(req: Request, res: Response, next: NextFunction) {
         const requestId = req.get("X-REQUEST-ID") ?? ""
         try {
-            // const requestId = req.get("X-REQUEST-ID") ?? ""
             const searchProductRequest: SearchProductRequest = req.body as SearchProductRequest
             const searchProductResponse = await SearchProductService.searchProduct(requestId, searchProductRequest.keyword)
             const response = setResponse(searchProductResponse, null)

@@ -1,5 +1,4 @@
 import { Client } from "@elastic/elasticsearch"
-// import { GetResponse } from "@elastic/elasticsearch/lib/api/types"
 import { Pool } from "mysql2"
 import { FieldPacket, PoolConnection, ResultSetHeader, RowDataPacket } from "mysql2/promise"
 
@@ -19,9 +18,6 @@ export async function createTableProducts(poolConnection: PoolConnection) {
     } catch(e) {
         console.log("error when creating table products:", e);
     }
-    // if (result.affectedRows !== 1) {
-    //     console.log("error when creating table products");
-    // }
     console.log("create table products succedded");
 }
 
@@ -40,15 +36,12 @@ export async function getDataProduct(poolConnection: PoolConnection, id: number)
     try {
         const query = `SELECT id, user_id, name, description, stock FROM products WHERE id = ?;`
         const result = await poolConnection.execute<RowDataPacket[]>(query, [id])
-        // console.log("result:", result);
-        
         console.log("get data product succedded");
         return result
     } catch(e) {
         console.log("error when get data product");
         return Promise.reject(e)
     }
-    // console.log("get data product succedded");
 }
 
 export async function deleteTableProducts (poolConnection: PoolConnection) {
@@ -58,12 +51,7 @@ export async function deleteTableProducts (poolConnection: PoolConnection) {
     } catch(e) {
         console.log("error when deleting table products:", e);
     }
-    // if (result.affectedRows !== 1) {
-    //     console.log("error when deleting table products");
-    // }
-
     console.log("delete table products succedded");
-    
 }
 
 export async function createDataProductsElasticsearch(client: Client) {

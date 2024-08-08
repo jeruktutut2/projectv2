@@ -71,7 +71,11 @@ npx jest tests/unit-tests/features/create-product/services/create-product-servic
 npx jest tests/integration-tests/features/update-product-by-id/services/update-product-by-id.test.ts  --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/delete-product-by-id/services/delete-product-by-id-service.test.ts --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/search-product/services/search-product-service.test.ts  --runInBand --detectOpenHandles  
-npx jest tests/api-tests/features/create-product/create-product.test.ts --runInBand --detectOpenHandles
+npx jest tests/api-tests/features/create-product/create-product.test.ts --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/delete-product/delete-product.test.ts --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/get-product-by-id/get-product-by-id.test.ts --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/search-product/search-product.test.ts --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/update-product-by-id/update-product-by-id.test.ts --runInBand --detectOpenHandles  
 https://stackoverflow.com/questions/62214949/testing-grpc-functions  
 
 ## elasticsearch  
@@ -88,3 +92,22 @@ npm i ioredis
 ## supertest
 npm install --save-dev supertest @types/supertest  
 https://www.npmjs.com/package/supertest  
+
+## run
+npm run start  
+
+## run curl test
+chmod +x create-product-curl.sh  
+./create-product-curl.sh  
+
+chmod +x get-product-by-id-curl.sh
+./get-product-by-id-curl.sh
+
+chmod +x search-product-curl.sh
+./search-product-curl.sh
+
+chmod +x update-product-by-id.sh
+./update-product-by-id.sh
+
+chmod +x delete-product-by-id.sh
+./delete-product-by-id.sh

@@ -3,7 +3,6 @@ package register_test
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -24,55 +23,32 @@ import (
 
 type RegisterTestSuite struct {
 	suite.Suite
-	ctx       context.Context
-	mysqlUtil utils.MysqlUtil
-	// redisUtil          utils.RedisUtil
+	ctx          context.Context
+	mysqlUtil    utils.MysqlUtil
 	validate     *validator.Validate
 	bcryptHelper helpers.BcryptHelper
-	// uuidHelper         helpers.UuidHelper
-	e *echo.Echo
-	// userRepository     repositories.UserRepository
-	// registerService    services.RegisterService
-	// registerController controllers.RegisterController
-	requestBody string
+	e            *echo.Echo
+	requestBody  string
 }
 
 func TestRegisterTestSuite(t *testing.T) {
 	suite.Run(t, new(RegisterTestSuite))
-	// sut.mysqlUtil = utils.NewMysqlConnection("root", "12345", "localhost:3309", "user", 10, 10, 10, 10)
 }
 
 func (sut *RegisterTestSuite) SetupSuite() {
 	sut.T().Log("SetupSuite")
 	sut.mysqlUtil = utils.NewMysqlConnection("root", "12345", "localhost:3309", "user", 10, 10, 10, 10)
-	// sut.redisUtil = utils.NewRedisConnection("localhost", "6380", 0)
 	sut.validate = setups.SetValidator()
 	sut.bcryptHelper = helpers.NewBcryptHelper()
-	// sut.uuidHelper = helpers.NewUuidHelper()
-	// sut.e = setups.SetEcho(sut.mysqlUtil, sut.redisUtil, sut.validate, sut.bcryptHelper, sut.uuidHelper)
 	sut.e = echo.New()
 	sut.e.Use(echomiddleware.Recover())
 	sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.GetRequestId)
-	// sut.e.Use(middlewares.PrintRequestResponseLog)
 	routes.RegisterRoute(sut.e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-	// sut.userRepository = repositories.NewUserRepository()
-	// sut.registerService = services.NewRegisterService(sut.mysqlUtil, sut.validate, sut.bcryptHelper, sut.userRepository)
-	// sut.registerController = controllers.NewRegisterController(sut.registerService)
-	// sut.e.POST("/api/v1/users/register", sut.registerController.Register, middlewares.GetRequestId, middlewares.PrintLog)
 }
 
 func (sut *RegisterTestSuite) SetupTest() {
 	sut.T().Log("SetupTest")
 	sut.ctx = context.Background()
-
-	// sut.e = echo.New()
-	// sut.e.Use(echomiddleware.Recover())
-	// sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.GetRequestId)
-	// sut.e.Use(middlewares.PrintLog)
-	// routes.RegisterRoute(sut.e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-
 	sut.requestBody = `{
 		"username": "username",
 		"email": "email@email.com",
@@ -88,14 +64,6 @@ func (sut *RegisterTestSuite) BeforeTest(suiteName, testName string) {
 
 func (sut *RegisterTestSuite) TestRegisterRegisterUserCannotFindRequestId() {
 	sut.T().Log("TestRegisterRegisterUserCannotFindRequestId")
-
-	// sut.e = echo.New()
-	// sut.e.Use(echomiddleware.Recover())
-	// sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.GetRequestId)
-	// sut.e.Use(middlewares.PrintLog)
-	// routes.RegisterRoute(sut.e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-
 	requestBody := `{
 		"username": "",
 		"email": "",
@@ -103,49 +71,10 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserCannotFindRequestId() {
 		"confirmpassword":"",
 		"utc": ""
 	}`
-
-	// sut.e = echo.New()
-	// sut.e.Use(echomiddleware.Recover())
-	// sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.GetRequestId)
-	// sut.e.Use(middlewares.PrintLog)
-	// // routes.RegisterRoute(sut.e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-	// sut.userRepository = repositories.NewUserRepository()
-	// sut.registerService = services.NewRegisterService(sut.mysqlUtil, sut.validate, sut.bcryptHelper, sut.userRepository)
-	// sut.registerController = controllers.NewRegisterController(sut.registerService)
-	// sut.e.POST("/api/v1/users/register", sut.registerController.Register, middlewares.GetRequestId, middlewares.PrintLog)
-
-	// request := httptest.NewRequest(http.MethodPost, "/api/v1/users/register", strings.NewReader(requestBody))
-	// request.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	// request.Header.Set("X-REQUEST-ID", "requestId")
-	// response := httptest.NewRecorder()
-
-	// // mw1 := echo.WrapMiddleware(middlewares.PrintLog)
-	// // mw2 := echo.WrapMiddleware(middlewares.GetRequestId)
-
-	// // Apply middleware in sequence
-	// // mw1(mw2(helloHandler))(c)
-
-	// c := sut.e.NewContext(request, response)
-	// fmt.Println("c:", c)
-	// // sut.e.Router().Find(http.MethodPost, "/api/v1/users/register", c)
-	// // controllers.RegisterController.Register(ctx)
-
-	// // err := sut.registerController.Register(c)
-	// // fmt.Println("err", err)
-
-	// e := echo.New()
-	// e.Use(echomiddleware.Recover())
-	// e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// e.Use(middlewares.GetRequestId)
-	// e.Use(middlewares.PrintLog)
-	// routes.RegisterRoute(e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/users/register", strings.NewReader(requestBody))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	sut.e.ServeHTTP(rec, req)
-	// fmt.Println("rec.Result():", rec.Result())
 	response := rec.Result()
 	sut.Equal(response.StatusCode, http.StatusBadRequest)
 
@@ -155,50 +84,11 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserCannotFindRequestId() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println("responseBody:", responseBody)
 	sut.Equal(responseBody["data"], nil)
-	// fmt.Println("errors:", responseBody["errors"])
-	// errorsString := responseBody["errors"].([]interface{})
-	// fmt.Println("errorsString:", errorsString)
-	// a, b := responseBody["errors"]
-	// fmt.Println("a, b:", a, b)
-	// c := a.([]interface{})
-	// fmt.Println("c:", c)
 	errorsResponseBody := responseBody["errors"].([]interface{})
-	// fmt.Println("errorsResponseBody[0]:", errorsResponseBody[0])
-	// fmt.Println("errorsResponseBody[0]:", errorsResponseBody[1])
-	// error0 := errorsResponseBody[0]
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
-	// fmt.Println("field:", errorMessage0["field"])
-	// fmt.Println("message:", errorMessage0["message"])
 	sut.Equal(errorMessage0["field"], "message")
 	sut.Equal(errorMessage0["message"], "cannot find requestId")
-	// sut.Equal(errorMessage0["message"], "internal server error")
-	// fmt.Println("a:", error0.(string))
-	// for _, value := range errorsResponseBody {
-	// 	// fmt.Println("value:", value)
-	// 	v, _ := value.(map[string]interface{})
-	// 	fmt.Println("field:", v["field"])
-	// 	fmt.Println("message:", v["message"])
-	// 	// var a map[string]interface{}
-	// 	// json.Unmarshal([]byte(value), a)
-
-	// }
-	// var errorMessages []helpers.ErrorMessage
-	// json.Unmarshal([]byte(responseBody["errors"].(string)), &errorMessages)
-	// fmt.Println("errorMessages:", errorMessages)
-	// c := e.NewContext(req, rec)
-	// userRepository := repositories.NewUserRepository()
-	// registerService := services.NewRegisterService(sut.mysqlUtil, sut.validate, sut.bcryptHelper, userRepository)
-	// registerController := controllers.NewRegisterController(registerService)
-	// err := registerController.Register(c)
-	// fmt.Println("err:", err)
-	// routes.RegisterRoute(e, sut.mysqlUtil, sut.validate, sut.bcryptHelper)
-	// if sut.NoError(registerController.Register(c)) {
-	// 	sut.Equal(http.StatusOK, rec.Code)
-	// 	sut.Equal("Hello, World!", rec.Body.String())
-	// }
-
 }
 
 func (sut *RegisterTestSuite) TestRegisterRegisterUserEmptyRequestBody2() {
@@ -216,9 +106,6 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserEmptyRequestBody2() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println()
-	// fmt.Println("responseBody:", responseBody)
-	// fmt.Println()
 	sut.Equal(responseBody["data"], nil)
 	errorsResponseBody := responseBody["errors"].([]interface{})
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
@@ -241,9 +128,6 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserEmptyRequestBody() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println()
-	// fmt.Println("responseBody:", responseBody)
-	// fmt.Println()
 	sut.Equal(responseBody["data"], nil)
 	errorsResponseBody := responseBody["errors"].([]interface{})
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
@@ -278,16 +162,12 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserRequestValidationError() {
 	rec := httptest.NewRecorder()
 	sut.e.ServeHTTP(rec, req)
 	response := rec.Result()
-	// sut.Equal(response.StatusCode, http.StatusBadRequest)
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	fmt.Println()
-	fmt.Println("responseBody:", responseBody)
-	fmt.Println()
 	sut.Equal(responseBody["data"], nil)
 	errorsResponseBody := responseBody["errors"].([]interface{})
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
@@ -305,12 +185,6 @@ func (sut *RegisterTestSuite) TestRegisterRegisterUserRequestValidationError() {
 	errorMessage4, _ := errorsResponseBody[4].((map[string]interface{}))
 	sut.Equal(errorMessage4["field"], "utc")
 	sut.Equal(errorMessage4["message"], "is required")
-
-	// [{"field":"username","message":"is required"},
-	// {"field":"email","message":"is required"},
-	// {"field":"password","message":"is required"},
-	// {"field":"confirmpassword","message":"is required"},
-	// {"field":"utc","message":"is required"}]
 }
 
 func (sut *RegisterTestSuite) TestRegisterPasswordAndConfirmpasswordIsDifferent() {
@@ -328,7 +202,6 @@ func (sut *RegisterTestSuite) TestRegisterPasswordAndConfirmpasswordIsDifferent(
 	rec := httptest.NewRecorder()
 	sut.e.ServeHTTP(rec, req)
 	response := rec.Result()
-	// sut.Equal(response.StatusCode, http.StatusBadRequest)
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		log.Fatalln(err)
@@ -376,7 +249,6 @@ func (sut *RegisterTestSuite) TestRegisterUserRepositoryCountByUsernameBadReques
 	rec := httptest.NewRecorder()
 	sut.e.ServeHTTP(rec, req)
 	response := rec.Result()
-	// fmt.Println("response:", response)
 	sut.Equal(response.StatusCode, http.StatusBadRequest)
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
@@ -448,8 +320,6 @@ func (sut *RegisterTestSuite) TestRegisterSuccess() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println(string(body))
-	// fmt.Println("data:", responseBody["data"].(map[string]interface{}))
 	data := responseBody["data"].(map[string]interface{})
 	sut.Equal(data["username"], "username1")
 	sut.Equal(data["email"], "email1@email.com")

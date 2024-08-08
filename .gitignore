@@ -335,3 +335,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+.venv
+
+__pycache__
+.pytest_cache

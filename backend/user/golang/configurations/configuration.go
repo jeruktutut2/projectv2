@@ -21,13 +21,6 @@ type Configuration struct {
 	ProjectUserRedisHost                  string `mapstructure:"PROJECT_USER_REDIS_HOST"`
 	ProjectUserRedisPort                  string `mapstructure:"PROJECT_USER_REDIS_PORT"`
 	ProjectUserRedisDatabase              int    `mapstructure:"PROJECT_USER_REDIS_DATABASE"`
-	// JwtKey                                string `mapstructure:"JWT_KEY"`
-	// JwtAccessTokenExpireTime              uint16 `mapstructure:"JWT_ACCESS_TOKEN_EXPIRE_TIME"`
-	// JwtRefreshTokenExpireTime             uint16 `mapstructure:"JWT_REFRESH_TOKEN_EXPIRE_TIME"`
-	// RabbitmqHost                          string `mapstructure:"RABBITMQ_HOST"`
-	// RabbitmqUsername                      string `mapstructure:"RABBITMQ_USERNAME"`
-	// RabbitmqPassword                      string `mapstructure:"RABBITMQ_PASSWORD"`
-	// RabbitmqPort                          string `mapstructure:"RABBITMQ_PORT"`
 }
 
 func NewConfiguration() (configuration *Configuration) {

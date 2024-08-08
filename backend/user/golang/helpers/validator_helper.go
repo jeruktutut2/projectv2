@@ -60,11 +60,6 @@ func TelephoneValidator(validate *validator.Validate) {
 	})
 }
 
-// type ErrorMessage struct {
-// 	Field   string `json:"field"`
-// 	Message string `json:"message"`
-// }
-
 func GetValidatorError(validatorError error, structRequest interface{}) (errorMessages []ErrorMessage) {
 	validationErrors := validatorError.(validator.ValidationErrors)
 	val := reflect.ValueOf(structRequest)

@@ -3,7 +3,6 @@ import { MysqlUtil } from "../../../utils/mysql-utils";
 import { errorHandler } from "../../../exceptions/error-exception";
 import { DeleteProductByIdRepository } from "../repositories/delete-product-by-id-repository";
 import { ResponseException } from "../../../exceptions/response-exception";
-// import { setErrorMessages } from "../../../exceptions/exception";
 import { ElasticsearchUtil } from "../../../utils/elasticsearch-util";
 import { setErrorMessages } from "../../../helpers/error-message";
 import { DataMessage, setDataMessage } from "../../../helpers/data-message";

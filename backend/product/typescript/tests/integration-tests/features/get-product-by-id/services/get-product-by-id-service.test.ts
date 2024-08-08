@@ -28,7 +28,6 @@ describe("get product by id", () => {
         const poolConnection: PoolConnection = await MysqlUtil.getPool().getConnection()
         await deleteTableProducts(poolConnection)
         await expect(async () => await GetProductByIdService.getProductById(requestId, id)).rejects.toThrow("internal server error")
-        // await expect(async () => await CreateProductService.create(requestId, createProductRequest)).rejects.toThrow("[{\"field\":\"message\",\"message\":\"internal server error\"}]");
     })
 
     it("should return error when no product", async () => {
@@ -44,7 +43,5 @@ describe("get product by id", () => {
         await createTableProducts(poolConnection)
         await createDataProducts(poolConnection)
         await expect(GetProductByIdService.getProductById(requestId, id)).resolves.toEqual({"description": "description1", "id": 1, "name": "name1", "stoct": 1})
-        // await expect(CreateProductService.create(requestId, createProductRequest)).resolves.toEqual({"description": "description", "name": "name", "stock": 1})
     })
-
 })

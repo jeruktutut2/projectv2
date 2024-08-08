@@ -6,7 +6,6 @@ import { setErrorMessages } from "../helpers/error-message";
 import { errorHandlerResponse } from "../exceptions/error-exception";
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
-    // let client: Redis | null = null
     const requestId: string = req.get("X-REQUEST-ID") ?? ""
     try {
         const sessionIdUser = req.get("X-SESSION-USER-ID") ?? ""
@@ -24,6 +23,5 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
         next()
     } catch(e: unknown) {
         return errorHandlerResponse(res, e, requestId)
-        // return res.status(500)
     }
 }

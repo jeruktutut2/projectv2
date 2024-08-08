@@ -22,14 +22,13 @@ import (
 
 type LoginServiceTestSuite struct {
 	suite.Suite
-	ctx               context.Context
-	requestId         string
-	sessionId         string
-	db                *sql.DB
-	client            *redis.Client
-	errTimeout        error
-	errInternalServer error
-	// user                         models.User
+	ctx                          context.Context
+	requestId                    string
+	sessionId                    string
+	db                           *sql.DB
+	client                       *redis.Client
+	errTimeout                   error
+	errInternalServer            error
 	loginUserRequest             models.LoginUserRequest
 	user                         models.User
 	mysqlUtilMock                *mockutils.MysqlUtilMock
@@ -97,7 +96,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositoryDelWithSessionIdTimeou
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errTimeout)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"email","message":"is required"},{"field":"password","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -108,7 +106,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositoryDelWithSessionIdIntern
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errInternalServer)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"email","message":"is required"},{"field":"password","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -119,7 +116,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositoryDelWithoutSessionIdTim
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errTimeout)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"email","message":"is required"},{"field":"password","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -130,7 +126,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositoryDelWithoutSessionIdInt
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errInternalServer)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"email","message":"is required"},{"field":"password","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -143,7 +138,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserRepositoryFindByEmailTimeoutError
 	sut.userRepositoryMock.Mock.On("FindByEmail", sut.db, sut.ctx, sut.loginUserRequest.Email).Return(models.User{}, sut.errTimeout)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"time out or user cancel the request"}]`)
 	sut.Equal(err.Error(), "time out or user cancel the request")
 }
 
@@ -155,7 +149,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserRepositoryFindByEmailInternalServ
 	sut.userRepositoryMock.Mock.On("FindByEmail", sut.db, sut.ctx, sut.loginUserRequest.Email).Return(models.User{}, sut.errInternalServer)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
@@ -167,7 +160,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserRepositoryFindByEmailBadRequestWr
 	sut.userRepositoryMock.Mock.On("FindByEmail", sut.db, sut.ctx, sut.loginUserRequest.Email).Return(models.User{}, sql.ErrNoRows)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"wrong email or password"}]`)
 	sut.Equal(err.Error(), "wrong email or password")
 }
 
@@ -180,7 +172,6 @@ func (sut *LoginServiceTestSuite) TestLoginBcryptCompareHashAndPasswordBadReques
 	sut.userRepositoryMock.Mock.On("FindByEmail", sut.db, sut.ctx, sut.loginUserRequest.Email).Return(sut.user, nil)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"wrong email or password"}]`)
 	sut.Equal(err.Error(), "wrong email or password")
 }
 
@@ -193,7 +184,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserPermissionRepositoryFindByUserIdT
 	sut.userPermissionRepositoryMock.Mock.On("FindByUserId", sut.db, sut.ctx, sut.user.Id.Int32).Return([]models.UserPermission{}, sut.errTimeout)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"time out or user cancel the request"}]`)
 	sut.Equal(err.Error(), "time out or user cancel the request")
 }
 
@@ -206,7 +196,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserPermissionRepositoryFindByUserIdI
 	sut.userPermissionRepositoryMock.Mock.On("FindByUserId", sut.db, sut.ctx, sut.user.Id.Int32).Return([]models.UserPermission{}, sut.errInternalServer)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
@@ -222,7 +211,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositorySetTimeoutError() {
 	sut.redisRepositoryMock.Mock.On("Set", sut.client, sut.ctx, sut.sessionId, session, time.Duration(0)).Return("", sut.errTimeout)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
 	sut.Equal(response, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"time out or user cancel the request"}]`)
 	sut.Equal(err.Error(), "time out or user cancel the request")
 }
 
@@ -237,9 +225,7 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositorySetInternalServerError
 	session := `{"email":"email17@email.com","id":1,"idPermissions":null,"username":"username17"}`
 	sut.redisRepositoryMock.Mock.On("Set", sut.client, sut.ctx, sut.sessionId, session, time.Duration(0)).Return("", sut.errInternalServer)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, "", sut.loginUserRequest)
-	// fmt.Println("response:", response, err)
 	sut.Equal(response, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 

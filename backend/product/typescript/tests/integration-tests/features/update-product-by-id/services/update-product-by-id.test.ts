@@ -42,7 +42,6 @@ describe("update product by id", () => {
             name: "",
             description: "'"
         }
-        // await expect(async () => await UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)).rejects.toThrow("[{\"field\":\"id\",\"message\":\"Number must be greater than 0\"},{\"field\":\"name\",\"message\":\"String must contain at least 1 character(s)\"}]")
         await expect(async () => await UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)).rejects.toThrow("validation error")
     })
 
@@ -58,19 +57,6 @@ describe("update product by id", () => {
         await createTableProducts(poolConnection)
         await expect(async () => await UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)).rejects.toThrow("cannot find product with id:1")
     })
-
-    // it("should return error when rows affected not one", async () => {
-    //     const poolConnection: PoolConnection = await MysqlUtil.getPool().getConnection()
-    //     await deleteTableProducts(poolConnection)
-    //     await createTableProducts(poolConnection)
-    //     await createDataProducts(poolConnection)
-    //     updateProductByIdRequest = {
-    //         id: 10,
-    //         name: "name",
-    //         description: "description"
-    //     }
-    //     await expect(async () => await UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)).rejects.toThrow("[{\"field\":\"message\",\"message\":\"cannot find product with id:1\"}]")
-    // })
 
     it("should success", async () => {
         const poolConnection: PoolConnection = await MysqlUtil.getPool().getConnection()
@@ -96,7 +82,5 @@ describe("update product by id", () => {
 
         expect(result.name).toEqual("name edit")
         expect(result.description).toEqual("description edit")
-
-        // await expect(UpdateProductByIdService.updateProductById(requestId, updateProductByIdRequest)).resolves.toEqual({"description": "description edit", "name": "name edit"})
     })
 })

@@ -21,7 +21,6 @@ const createDataUser = async(connection) => {
     } catch(e) {
         console.log("error when creating user data", e);
     }
-    // const query = `INSERT INTO user (id,username,email) VALUES (1,"username","email@email.com");`
 }
 
 const dropUserTable = async(connection) => {

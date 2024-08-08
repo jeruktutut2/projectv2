@@ -7,7 +7,6 @@ export class DeleteProductByIdController {
     static async deleteProductById(req: Request, res: Response, next: NextFunction) {
         const requestId = req.get("X-REQUEST-ID") ?? ""
         try {
-            // const requestId = req.get("X-REQUEST-ID") ?? ""
             const deleteProductByIdRequest: DeleteProductByIdRequest = req.body as DeleteProductByIdRequest
             const deleteProductByIdResponse = await DeleteProductByIdService.deleteProductById(requestId, deleteProductByIdRequest.id)
             const response = setResponse(deleteProductByIdResponse, null)

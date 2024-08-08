@@ -75,7 +75,6 @@ func (sut *LoginServiceTestSuite) TestLoginRedisRepositoryDelWithSessionIdIntern
 	sut.loginUserRequest = models.LoginUserRequest{}
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"email","message":"is required"},{"field":"password","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -86,7 +85,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserRepositoryFindByEmailInternalServ
 	initialize.DropTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
@@ -98,7 +96,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserRepositoryFindByEmailBadRequestWr
 	initialize.CreateTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"wrong email or password"}]`)
 	sut.Equal(err.Error(), "wrong email or password")
 }
 
@@ -112,7 +109,6 @@ func (sut *LoginServiceTestSuite) TestLoginBcryptCompareHashAndPasswordBadReques
 	sut.loginUserRequest.Password = "password@A1-"
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"wrong email or password"}]`)
 	sut.Equal(err.Error(), "wrong email or password")
 }
 
@@ -125,7 +121,6 @@ func (sut *LoginServiceTestSuite) TestLoginUserPermissionRepositoryFindByUserIdI
 	initialize.CreateDataUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	response, err := sut.loginService.Login(sut.ctx, sut.requestId, sut.sessionId, sut.loginUserRequest)
 	sut.Equal(response, "")
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 

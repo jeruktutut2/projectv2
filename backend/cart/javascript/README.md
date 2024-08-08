@@ -43,7 +43,36 @@ npm install --save mysql2
 https://sidorares.github.io/node-mysql2/docs  
 
 ## integration test  
+npx jest tests/integration-tests/features/create-cart/services/create-cart-service.test.js --runInBand --detectOpenHandles
+
+npx jest tests/unit-tests/features/create-cart/services/create-cart.test.js --runInBand --detectOpenHandles  
+npx jest tests/unit-tests/features/get-cart/services/get-cart-service.test.js --runInBand --detectOpenHandles  
+npx jest tests/unit-tests/features/update-quantity/services/update-quantity.test.js --runInBand --detectOpenHandles
+
 npx jest tests/integration-tests/features/create-cart/services/create-cart-service.test.js --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/update-quantity/services/update-quantity-service.test.js --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/delete-cart/services/delete-cart-service.test.js --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/get-cart/services/get-cart-service.test.js --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/create-cart/create-cart.test.js --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/delete-cart/delete-cart.test.js --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/get-cart/get-cart.test.js --runInBand --detectOpenHandles  
+npx jest tests/api-tests/features/update-quantity/update-quantity.test.js --runInBand --detectOpenHandles  
+
+npx jest tests/api-tests/features/update-product-by-id/update-product-by-id.test.ts --runInBand --detectOpenHandles
+
+
+## run
+node src/main.js  
+
+## run curl test
+chmod +x create-cart-curl.sh  
+./create-cart-curl.sh  
+
+chmod +x get-cart-curl.sh  
+./get-cart-curl.sh  
+
+chmod +x update-quantity-curl.sh  
+./update-quantity-curl.sh  
+
+chmod +x delete-cart-curl.sh  
+./delete-cart-curl.sh  

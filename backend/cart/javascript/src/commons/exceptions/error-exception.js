@@ -3,7 +3,7 @@ import responseMessageHelper from "../helpers/response-message-helper.js";
 export const errorHandler = (error, requestId) => {
     console.log(JSON.stringify({logTime: (new Date()).toISOString(), app: "backend-cart-nodejs", requestId: requestId, error: error.stack}));
     if (error instanceof ResponseException) {
-        throw new ResponseException(error.status, error.ErrorMessages, error.message)
+        throw new ResponseException(error.status, error.errorMessages, error.message)
     } else {
         throw new ResponseException(500, setInternalServerErrorMessage(), "internal server error")
     }
@@ -22,7 +22,7 @@ export const errorHandlerResponse = (res, error) => {
     let response
     if (error instanceof ResponseException) {
         status = error.status
-        response = responseMessageHelper.setResponse(null, error.ErrorMessages)
+        response = responseMessageHelper.setResponse(null, error.errorMessages)
     } else {
         status = 500
         response = responseMessageHelper.setResponse(null, setInternalServerErrorMessage())

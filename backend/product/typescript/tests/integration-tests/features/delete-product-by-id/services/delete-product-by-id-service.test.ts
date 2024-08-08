@@ -54,17 +54,10 @@ describe("delete product by id", () => {
 
         const [rows] = await getDataProduct(poolConnection, 1)
         expect(rows.length).toEqual(0)
-
-        // const dataProductElasticsearch  = await getDataProductsElasticsearch(client)
-        // console.log("dataProductElasticsearch:", dataProductElasticsearch);
-        // await expect(async () => await getDataProductsElasticsearch(client)).rejects.toThrow(`{"_index":"products_v1","_type":"_doc","_id":"1","found":false}`)
-        await expect(getDataProductsElasticsearch(client)).resolves.toEqual(undefined)
         
-        // expect(dataProductElasticsearch.found).toEqual(0)
+        await expect(getDataProductsElasticsearch(client)).resolves.toEqual(undefined)
 
         const dataMessage = setDataMessage("successfully delete product")
         expect(result).toEqual(dataMessage)
-
-        // await expect(DeleteProductByIdService.DeleteProductById(requestId, id)).resolves.toEqual(true)
     })
 })

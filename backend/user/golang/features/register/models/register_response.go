@@ -1,7 +1,5 @@
 package models
 
-// import "project-user/features/register/models"
-
 type RegisterUserResponse struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`

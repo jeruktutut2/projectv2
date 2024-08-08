@@ -13,8 +13,9 @@ const updateQuantity = async(requestId, request) => {
         await connection.beginTransaction()
         // this should be by idCart, userId and productId
         const [rows] = await updateQuantityRepository.getByUserIdAndProductId(connection, request.userId, request.productId)
+        console.log("rows:", rows);
         if (rows.length !== 1) {
-            throw new ResponseException(400, setErrorMessages("cannot find product in cart"), "cannot find product in cart")
+            throw new ResponseException(400, setErrorMessages("cannot find product in cart or many same product in cart"), "cannot find product in cart")
         }
         const result = await updateQuantityRepository.updateQuantityById(connection, request.quantity, rows[0].id)
         if (result[0].affectedRows !== 1) {

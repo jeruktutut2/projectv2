@@ -35,7 +35,6 @@ func (sut *LogoutServiceTestSuite) SetupSuite() {
 	sut.ctx = context.Background()
 	sut.requestId = "requestId"
 	sut.sessionId = "sessionId"
-	// sut.errTimeout = context.Canceled
 	sut.client = &redis.Client{}
 	sut.errTimeout = context.Canceled
 	sut.errInternalServer = errors.New("internal server error")
@@ -57,7 +56,6 @@ func (sut *LogoutServiceTestSuite) TestLogoutRedisRepositoryDelTimeoutError() {
 	sut.redisUtilMock.Mock.On("GetClient").Return(sut.client)
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errTimeout)
 	err := sut.logoutService.Logout(sut.ctx, sut.requestId, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"time out or user cancel the request"}]`)
 	sut.Equal(err.Error(), "time out or user cancel the request")
 }
 
@@ -66,7 +64,6 @@ func (sut *LogoutServiceTestSuite) TestLogoutRedisRepositoryDelInternalServerErr
 	sut.redisUtilMock.Mock.On("GetClient").Return(sut.client)
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), sut.errInternalServer)
 	err := sut.logoutService.Logout(sut.ctx, sut.requestId, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
@@ -75,7 +72,6 @@ func (sut *LogoutServiceTestSuite) TestLogoutRedisRepositoryDelRowsAffectedNotOn
 	sut.redisUtilMock.Mock.On("GetClient").Return(sut.client)
 	sut.redisRepositoryMock.Mock.On("Del", sut.client, sut.ctx, sut.sessionId).Return(int64(0), nil)
 	err := sut.logoutService.Logout(sut.ctx, sut.requestId, sut.sessionId)
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 

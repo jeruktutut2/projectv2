@@ -27,22 +27,14 @@ func NewRegisterController(registerService services.RegisterService) RegisterCon
 }
 
 func (controller *RegisterControllerImplementation) Register(c echo.Context) error {
-	// fmt.Println()
-	// fmt.Println("controller register")
-	// fmt.Println()
 	requestId := c.Request().Context().Value(middlewares.RequestIdKey).(string)
 	var registerUserRequest models.RegisterUserRequest
 	err := c.Bind(&registerUserRequest)
 	if err != nil {
-		// helpers.PrintLogToTerminal(err, requestId)
-		// return c.String(http.StatusBadRequest, "bad request")
 		return exceptions.ErrorHandler(c, err, requestId)
 	}
 	nowUnixMili := time.Now().UnixMilli()
 	registerResponse, err := controller.RegisterService.Register(c.Request().Context(), requestId, nowUnixMili, registerUserRequest)
-	// fmt.Println()
-	// fmt.Println("registerResponse, err:", registerResponse, err)
-	// fmt.Println()
 	if err != nil {
 		return exceptions.ErrorHandler(c, err, requestId)
 	}

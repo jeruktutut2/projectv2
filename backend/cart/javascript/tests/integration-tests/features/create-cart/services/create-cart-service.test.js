@@ -14,7 +14,6 @@ describe("create cart service", () => {
     }
 
     beforeAll(async () => {
-        // mysql.createPool("mysql://"+process.env.PROJECT_CART_MYSQL_USERNAME+":"+process.env.PROJECT_CART_MYSQL_PASSWORD+"@"+process.env.PROJECT_CART_MYSQL_HOST+"/"+process.env.PROJECT_CART_MYSQL_DATABASE);
         process.env.PROJECT_CART_MYSQL_USERNAME = "root"
         process.env.PROJECT_CART_MYSQL_PASSWORD = "12345"
         process.env.PROJECT_CART_MYSQL_HOST = "localhost:3309"
@@ -39,7 +38,6 @@ describe("create cart service", () => {
     })
 
     it("should return validation error when request body is empty", async () => {
-        // console.log("should return");
         request = {
             userId: 0,
             productId: 0,
@@ -53,9 +51,6 @@ describe("create cart service", () => {
         await initializeCart.dropTableCart(connection)
         await initializeProduct.dropTableProduct(connection)
         await initializeUser.dropUserTable(connection)
-        // await initializeProduct.dropTableProduct(connection)
-        // await initializeCart.dropTableCart(connection)
-        // console.log("request:", request);
         await expect(async () => await createCartService.createCart(requestId, request)).rejects.toThrow("internal server error");
     })
 
@@ -71,10 +66,8 @@ describe("create cart service", () => {
         await initializeCart.createTableCart(connection)
 
         const result = await createCartService.createCart(requestId, request)
-        // console.log("result:", result);
 
         const [rows] =  await initializeCart.getDataCart(connection, 1)
-        // console.log("rows:", rows);
         expect(rows.length).toEqual(1)
         expect(rows[0].id).toEqual(1)
         expect(rows[0].user_id).toEqual(1)

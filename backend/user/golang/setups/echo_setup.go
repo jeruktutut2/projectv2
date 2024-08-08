@@ -21,8 +21,6 @@ func SetEcho(mysqlUtil utils.MysqlUtil, redisUtil utils.RedisUtil, validate *val
 	e = echo.New()
 	e.Use(echomiddleware.Recover())
 	e.HTTPErrorHandler = CustomHTTPErrorHandler
-	// e.Use(middlewares.GetRequestId)
-	// e.Use(middlewares.PrintRequestResponseLog)
 
 	regiterroute.RegisterRoute(e, mysqlUtil, validate, bcryptHelper)
 	loginroute.LoginRoute(e, mysqlUtil, redisUtil, validate, bcryptHelper, uuidHelper)
@@ -33,7 +31,6 @@ func SetEcho(mysqlUtil utils.MysqlUtil, redisUtil utils.RedisUtil, validate *val
 
 func StartEcho(e *echo.Echo, host string) {
 	go func() {
-		// if err := e.Start(":" + port); err != nil && err != http.ErrServerClosed {
 		if err := e.Start(host); err != nil && err != http.ErrServerClosed {
 			e.Logger.Fatal("shutting down the server")
 		}
@@ -52,38 +49,29 @@ func StopEcho(e *echo.Echo, host string) {
 }
 
 func CustomHTTPErrorHandler(err error, c echo.Context) {
-	// requestId := c.Request().Context().Value(middleware.RequestIdKey).(string)
 	requestId := c.Request().Header.Get("X-REQUESTID")
 	helpers.PrintLogToTerminal(err, requestId)
 	he, ok := err.(*echo.HTTPError)
 	if !ok {
 		err = errors.New("cannot convert error to echo.HTTPError")
 		helpers.PrintLogToTerminal(err, requestId)
-
-		// var errorMessages []helpers.ErrorMessage
-		// var  helpers.ErrorMessage
 		errorMessages := helpers.ToErrorMessages("internal server error")
 		response := helpers.Response{
 			Data:   nil,
 			Errors: errorMessages,
 		}
-		// errorMessages := helpers.ToErrorMessages("internal server error")
 		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		c.Response().WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(c.Response()).Encode(response)
 		return
 	}
 
-	// var errorMessage string
 	var message string
 	if he.Code == http.StatusNotFound {
-		// errorMessage = "not found"
 		message = "not found"
 	} else if he.Code == http.StatusMethodNotAllowed {
-		// errorMessage = "method not allowed"
 		message = "method not allowed"
 	} else {
-		// errorMessage = "internal server error"
 		message = "internal server error"
 	}
 	errorMessages := helpers.ToErrorMessages(message)

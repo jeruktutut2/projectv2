@@ -22,11 +22,10 @@ type RegisterServiceTestSuite struct {
 	nowUnixMili         int64
 	registerUserRequest models.RegisterUserRequest
 	mysqlUtil           utils.MysqlUtil
-	// redisUtil           utils.RedisUtil
-	validate        *validator.Validate
-	bcryptHelper    helpers.BcryptHelper
-	userRepository  repositories.UserRepository
-	registerService services.RegisterService
+	validate            *validator.Validate
+	bcryptHelper        helpers.BcryptHelper
+	userRepository      repositories.UserRepository
+	registerService     services.RegisterService
 }
 
 func TestRegisterTestSuite(t *testing.T) {
@@ -36,7 +35,6 @@ func TestRegisterTestSuite(t *testing.T) {
 func (sut *RegisterServiceTestSuite) SetupSuite() {
 	sut.T().Log("SetupSuite")
 	sut.mysqlUtil = utils.NewMysqlConnection("root", "12345", "localhost:3309", "user", 10, 10, 10, 10)
-	// sut.redisUtil = utils.NewRedisConnection("localhost", "6380", 0)
 	sut.validate = validator.New()
 	helpers.UsernameValidator(sut.validate)
 	helpers.PasswordValidator(sut.validate)
@@ -69,7 +67,6 @@ func (sut *RegisterServiceTestSuite) TestRegisterRegisterUserRequestValidationEr
 	registerUserRequest := models.RegisterUserRequest{}
 	response, err := sut.registerService.Register(sut.ctx, sut.requestId, sut.nowUnixMili, registerUserRequest)
 	sut.Equal(response, models.RegisterUserResponse{})
-	// sut.Equal(err.Error(), `[{"field":"username","message":"is required"},{"field":"email","message":"is required"},{"field":"password","message":"is required"},{"field":"confirmpassword","message":"is required"},{"field":"utc","message":"is required"}]`)
 	sut.Equal(err.Error(), "validation error")
 }
 
@@ -78,52 +75,40 @@ func (sut *RegisterServiceTestSuite) TestRegisterPasswordAndConfirmpasswordIsDif
 	sut.registerUserRequest.Confirmpassword = "password@A1-"
 	response, err := sut.registerService.Register(sut.ctx, sut.requestId, sut.nowUnixMili, sut.registerUserRequest)
 	sut.Equal(response, models.RegisterUserResponse{})
-	// sut.Equal(err.Error(), `[{"field":"message","message":"password and confirm password is different"}]`)
 	sut.Equal(err.Error(), "password and confirm password is different")
 }
 
 func (sut *RegisterServiceTestSuite) TestRegisterUserRepositoryCountByUsernameInternalServerError() {
 	sut.T().Log("TestRegisterUserRepositoryCountByUsernameInternalServerError")
-	// initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
-	// initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	response, err := sut.registerService.Register(sut.ctx, sut.requestId, sut.nowUnixMili, sut.registerUserRequest)
 	sut.Equal(response, models.RegisterUserResponse{})
-	// sut.Equal(err.Error(), `[{"field":"message","message":"internal server error"}]`)
 	sut.Equal(err.Error(), "internal server error")
 }
 
 func (sut *RegisterServiceTestSuite) TestRegisterUserRepositoryCountByUsernameBadRequestUsernameAlreadyExists() {
 	sut.T().Log("TestRegisterUserRepositoryCountByUsernameBadRequestUsernameAlreadyExists")
-	// initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
-	// initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateDataUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	response, err := sut.registerService.Register(sut.ctx, sut.requestId, sut.nowUnixMili, sut.registerUserRequest)
 	sut.Equal(response, models.RegisterUserResponse{})
-	// sut.Equal(err.Error(), `[{"field":"message","message":"username already exists"}]`)
 	sut.Equal(err.Error(), "username already exists")
 }
 
 func (sut *RegisterServiceTestSuite) TestRegisterUserRepositoryCountByCountByEmailBadRequestUsernameAlreadyExists() {
 	sut.T().Log("TestRegisterUserRepositoryCountByUsernameBadRequestUsernameAlreadyExists")
-	// initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
-	// initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateDataUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	sut.registerUserRequest.Username = "username1"
 	response, err := sut.registerService.Register(sut.ctx, sut.requestId, sut.nowUnixMili, sut.registerUserRequest)
 	sut.Equal(response, models.RegisterUserResponse{})
-	// sut.Equal(err.Error(), `[{"field":"message","message":"email already exists"}]`)
 	sut.Equal(err.Error(), "email already exists")
 }
 
 func (sut *RegisterServiceTestSuite) TestRegisterSuccess() {
 	sut.T().Log("TestRegisterSuccess")
-	// initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
-	// initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateTableUser(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.CreateDataUser(sut.mysqlUtil.GetDb(), sut.ctx)

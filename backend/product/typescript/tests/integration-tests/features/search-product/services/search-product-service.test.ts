@@ -6,8 +6,7 @@ import { createDataProductsElasticsearch } from "../../../../initialize/products
 describe("", () => {
 
     const requestId = "requestId"
-    // const keyword = "name"
-
+    
     beforeAll( async () => {
         await ElasticsearchUtil.getInstance()
     })
@@ -36,7 +35,6 @@ describe("", () => {
         const client: Client = ElasticsearchUtil.getClient()
         await createDataProductsElasticsearch(client)
         const result = await SearchProductService.searchProduct(requestId, keyword)
-        // console.log("result:", result);
         expect(result.length).toEqual(1)
         expect(result[0].id).toEqual("1")
         expect(result[0].name).toEqual("name1")

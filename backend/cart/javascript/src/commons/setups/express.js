@@ -7,7 +7,7 @@ import updateQuantityRouter from "../../features/update-quantity/routes/update-q
 
 export const web = express()
 web.use(express.json())
-web.use(logRequestResponseMiddleware.printLogRequestResponse())
+web.use(logRequestResponseMiddleware.printLogRequestResponse)
 web.use(createCartRouter.createCartRouter)
 web.use(deleteCartRouter.deleteCartRouter)
 web.use(getCartRouter.getCartRouter)

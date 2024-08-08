@@ -18,6 +18,5 @@ func LoginRoute(e *echo.Echo, mysqlUtil utils.MysqlUtil, redisUtil utils.RedisUt
 	redisRepository := repositories.NewRedisRepository()
 	loginService := services.NewLoginService(mysqlUtil, redisUtil, validate, userRepository, userPermissionRepository, bcryptHelper, redisRepository, uuidHelper)
 	loginController := controllers.NewLoginController(loginService)
-	// e.POST("/api/v1/users/login", loginController.Login, middlewares.GetRequestId, middlewares.GetSessionIdUser)
 	e.POST("/api/v1/users/login", loginController.Login, middlewares.PrintRequestResponseLog, middlewares.GetSessionIdUser)
 }

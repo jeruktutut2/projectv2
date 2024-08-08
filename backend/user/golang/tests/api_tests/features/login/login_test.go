@@ -23,9 +23,7 @@ import (
 
 type LoginTestSuite struct {
 	suite.Suite
-	ctx context.Context
-	// requestId    string
-	// sessionId    string
+	ctx          context.Context
 	requestBody  string
 	mysqlUtil    utils.MysqlUtil
 	redisUtil    utils.RedisUtil
@@ -49,8 +47,6 @@ func (sut *LoginTestSuite) SetupSuite() {
 	sut.e = echo.New()
 	sut.e.Use(echomiddleware.Recover())
 	sut.e.HTTPErrorHandler = setups.CustomHTTPErrorHandler
-	// sut.e.Use(middlewares.PrintRequestResponseLog)
-	// sut.e.Use(middlewares.GetSessionIdUser)
 	routes.LoginRoute(sut.e, sut.mysqlUtil, sut.redisUtil, sut.validate, sut.bcryptHelper, sut.uuidHelper)
 }
 
@@ -87,7 +83,6 @@ func (sut *LoginTestSuite) TestLoginRedisRepositoryDelWithSessionIdInternalServe
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println("responseBody:", responseBody)
 	sut.Equal(responseBody["data"], nil)
 	errorsResponseBody := responseBody["errors"].([]interface{})
 	errorMessage0, _ := errorsResponseBody[0].((map[string]interface{}))
@@ -236,7 +231,6 @@ func (sut *LoginTestSuite) TestLoginSuccess() {
 	}
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
-	// fmt.Println("responseBody:", responseBody)
 	sut.NotEqual(responseBody["data"], "")
 	sut.Equal(responseBody["errors"], nil)
 }
