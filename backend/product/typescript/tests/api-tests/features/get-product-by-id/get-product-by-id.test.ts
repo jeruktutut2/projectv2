@@ -1,8 +1,8 @@
 import supertest from "supertest"
-import { web } from "../../../../src/setups/express"
-import { MysqlUtil } from "../../../../src/utils/mysql-utils"
+import { web } from "../../../../src/commons/setups/express"
+import { MysqlUtil } from "../../../../src/commons/utils/mysql-utils"
 import { createDataProducts, createTableProducts, deleteTableProducts } from "../../../initialize/products"
-import { ElasticsearchUtil } from "../../../../src/utils/elasticsearch-util"
+import { ElasticsearchUtil } from "../../../../src/commons/utils/elasticsearch-util"
 
 describe("get product by id GET /api/v1/products", () => {
     beforeAll(async () => {

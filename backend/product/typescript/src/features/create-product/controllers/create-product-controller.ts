@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateProductService } from "../services/create-product-service";
 import { CreateProductRequest } from "../models/create-product-request";
-import { setResponse } from "../../../helpers/response-message";
-import { errorHandlerResponse } from "../../../exceptions/error-exception";
+import { setResponse } from "../../../commons/helpers/response-message";
+import { errorHandlerResponse } from "../../../commons/exceptions/error-exception";
 
 export class CreateProductController {
     static async createProduct(req: Request, res: Response, next: NextFunction) {

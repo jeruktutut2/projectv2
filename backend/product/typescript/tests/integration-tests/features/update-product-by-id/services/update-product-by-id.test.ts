@@ -1,5 +1,5 @@
-import { MysqlUtil } from "../../../../../src/utils/mysql-utils"
-import { ElasticsearchUtil } from "../../../../../src/utils/elasticsearch-util";
+import { MysqlUtil } from "../../../../../src/commons/utils/mysql-utils"
+import { ElasticsearchUtil } from "../../../../../src/commons/utils/elasticsearch-util";
 import { UpdateProductByIdRequest } from "../../../../../src/features/update-product-by-id/models/update-product-by-id-request";
 import { UpdateProductByIdService } from "../../../../../src/features/update-product-by-id/services/update-product-by-id-service";
 import { PoolConnection } from "mysql2/promise";

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { SearchProductService } from "../services/search-product-service";
 import { SearchProductRequest } from "../models/search-product-request";
-import { setResponse } from "../../../helpers/response-message";
-import { errorHandlerResponse } from "../../../exceptions/error-exception";
+import { setResponse } from "../../../commons/helpers/response-message";
+import { errorHandlerResponse } from "../../../commons/exceptions/error-exception";
 
 export class SearchProductController {
     static async searchProduct(req: Request, res: Response, next: NextFunction) {

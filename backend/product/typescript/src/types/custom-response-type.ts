@@ -1,5 +1,5 @@
-import express, { Response } from 'express';
+// import express, { Response } from 'express';
 
-export interface CustomResponse extends Response {
-    body?: any
-}
+// export interface CustomResponse extends Response {
+//     body?: any
+// }

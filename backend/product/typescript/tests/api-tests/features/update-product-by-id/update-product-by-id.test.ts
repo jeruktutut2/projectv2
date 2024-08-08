@@ -1,7 +1,7 @@
 import supertest from "supertest"
-import { ElasticsearchUtil } from "../../../../src/utils/elasticsearch-util"
-import { MysqlUtil } from "../../../../src/utils/mysql-utils"
-import { web } from "../../../../src/setups/express";
+import { ElasticsearchUtil } from "../../../../src/commons/utils/elasticsearch-util"
+import { MysqlUtil } from "../../../../src/commons/utils/mysql-utils"
+import { web } from "../../../../src/commons/setups/express";
 import { createDataProducts, createDataProductsElasticsearch, createTableProducts, deleteTableProducts, getDataProduct } from "../../../initialize/products";
 
 describe("update product by id PATCH /api/v1/products", () => {

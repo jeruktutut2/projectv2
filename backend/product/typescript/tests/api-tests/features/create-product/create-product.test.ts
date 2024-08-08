@@ -1,7 +1,7 @@
 import supertest from "supertest"
-import { web} from "../../../../src/setups/express";
-import { MysqlUtil } from "../../../../src/utils/mysql-utils";
-import { ElasticsearchUtil } from "../../../../src/utils/elasticsearch-util";
+import { web} from "../../../../src/commons/setups/express";
+import { MysqlUtil } from "../../../../src/commons/utils/mysql-utils";
+import { ElasticsearchUtil } from "../../../../src/commons/utils/elasticsearch-util";
 import { createDataProducts, createTableProducts, deleteTableProducts, getDataProduct } from "../../../initialize/products";
 
 describe("create product POST /api/v1/products", () => {
@@ -81,7 +81,7 @@ describe("create product POST /api/v1/products", () => {
 
         const resultElasticsearch = await ElasticsearchUtil.getClient().get({
             index: "products",
-            id: "1"
+            id: "2"
         })
         expect(resultElasticsearch.found).toEqual(true)
 

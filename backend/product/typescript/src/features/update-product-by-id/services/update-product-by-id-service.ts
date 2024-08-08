@@ -1,15 +1,15 @@
 import { PoolConnection } from "mysql2/promise";
 import { UpdateProductByIdRequest } from "../models/update-product-by-id-request";
 import { UpdateProductByIdResponse } from "../models/update-product-by-id-response";
-import { MysqlUtil } from "../../../utils/mysql-utils";
-import { errorHandler } from "../../../exceptions/error-exception";
+import { MysqlUtil } from "../../../commons/utils/mysql-utils";
+import { errorHandler } from "../../../commons/exceptions/error-exception";
 import { UpdateProductByIdRepository } from "../repositories/update-product-by-id-repository";
-import { ResponseException } from "../../../exceptions/response-exception";
+import { ResponseException } from "../../../commons/exceptions/response-exception";
 import { Product } from "../models/product";
-import { ElasticsearchUtil } from "../../../utils/elasticsearch-util";
-import { Validation } from "../../../validation/validation";
+import { ElasticsearchUtil } from "../../../commons/utils/elasticsearch-util";
+import { Validation } from "../../../commons/validations/validation";
 import { UpdateProductByIdValidationSchema } from "../validation-schema/update-product-by-id-validation-schema";
-import { setErrorMessages } from "../../../helpers/error-message";
+import { setErrorMessages } from "../../../commons/helpers/error-message";
 
 export class UpdateProductByIdService {
 

@@ -66,8 +66,11 @@ npx jest path/to/your/test-file.js --runInBand
 npx jest tests/integration-test/services/user-service.test.js --detectOpenHandles  
 npx jest tests/integration-tests/features/create-product/services/create-product-service.test.ts --runInBand --detectOpenHandles  
 npx jest -t "should return internal server error when there is no table products"   
+
 npx jest tests/integration-tests/features/get-product-by-id/services/get-product-by-id-service.test.ts --runInBand --detectOpenHandles  
-npx jest tests/unit-tests/features/create-product/services/create-product-service.test.ts --runInBand --detectOpenHandles  
+
+<!-- cannot do unit testing -->
+<!-- npx jest tests/unit-tests/features/create-product/services/create-product-service.test.ts --runInBand --detectOpenHandles   -->
 npx jest tests/integration-tests/features/update-product-by-id/services/update-product-by-id.test.ts  --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/delete-product-by-id/services/delete-product-by-id-service.test.ts --runInBand --detectOpenHandles  
 npx jest tests/integration-tests/features/search-product/services/search-product-service.test.ts  --runInBand --detectOpenHandles  

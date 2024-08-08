@@ -1,9 +1,9 @@
 import { Client } from "@elastic/elasticsearch"
-import { ElasticsearchUtil } from "../../../utils/elasticsearch-util"
+import { ElasticsearchUtil } from "../../../commons/utils/elasticsearch-util"
 import { SearchProductResponse } from "../models/search-product-response"
-import { ResponseException } from "../../../exceptions/response-exception"
-import { errorHandler } from "../../../exceptions/error-exception"
-import { setErrorMessages } from "../../../helpers/error-message"
+import { ResponseException } from "../../../commons/exceptions/response-exception"
+import { errorHandler } from "../../../commons/exceptions/error-exception"
+import { setErrorMessages } from "../../../commons/helpers/error-message"
 
 export class SearchProductService {
     static async searchProduct(requestId: string, keyword: string): Promise<SearchProductResponse[]> {

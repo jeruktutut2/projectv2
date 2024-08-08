@@ -1,10 +1,10 @@
 import { PoolConnection } from "mysql2/promise"
-import { ElasticsearchUtil } from "../../../../../src/utils/elasticsearch-util"
-import { MysqlUtil } from "../../../../../src/utils/mysql-utils"
+import { ElasticsearchUtil } from "../../../../../src/commons/utils/elasticsearch-util"
+import { MysqlUtil } from "../../../../../src/commons/utils/mysql-utils"
 import { createDataProducts, createDataProductsElasticsearch, createTableProducts, deleteTableProducts, getDataProduct, getDataProductsElasticsearch } from "../../../../initialize/products"
 import { DeleteProductByIdService } from "../../../../../src/features/delete-product-by-id/services/delete-product-by-id-service";
 import { Client } from "@elastic/elasticsearch";
-import { setDataMessage } from "../../../../../src/helpers/data-message";
+import { setDataMessage } from "../../../../../src/commons/helpers/data-message";
 
 describe("delete product by id", () => {
 

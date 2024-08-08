@@ -1,16 +1,16 @@
-import { errorHandler } from "../../../exceptions/error-exception";
-import { Validation } from "../../../validation/validation";
+import { errorHandler } from "../../../commons/exceptions/error-exception";
+import { Validation } from "../../../commons/validations/validation";
 import { CreateProductRequest } from "../models/create-product-request";
 import { CreateProductResponse } from "../models/create-product-response";
 import { CreateProductValidationSchema } from "../validation-schema/create-product-validation-schema";
 import { PoolConnection } from 'mysql2/promise';
-import { MysqlUtil } from "../../../utils/mysql-utils";
+import { MysqlUtil } from "../../../commons/utils/mysql-utils";
 import { Product } from "../models/create-product";
 import { CreateProductRepository } from "../repositories/create-product-repository";
-import { ResponseException } from "../../../exceptions/response-exception";
-import { ElasticsearchUtil } from "../../../utils/elasticsearch-util";
+import { ResponseException } from "../../../commons/exceptions/response-exception";
+import { ElasticsearchUtil } from "../../../commons/utils/elasticsearch-util";
 import { ProductElasticSearch } from "../models/create-product-elasticsearch";
-import { setErrorMessages } from "../../../helpers/error-message";
+import { setErrorMessages } from "../../../commons/helpers/error-message";
 
 export class CreateProductService {
     static async create(requestId: string, createProductRequest: CreateProductRequest): Promise<CreateProductResponse> {

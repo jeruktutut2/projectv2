@@ -1,10 +1,10 @@
-import { errorHandler } from "../../../exceptions/error-exception";
-import { MysqlUtil } from "../../../utils/mysql-utils";
+import { errorHandler } from "../../../commons/exceptions/error-exception";
+import { MysqlUtil } from "../../../commons/utils/mysql-utils";
 import { GetProductByIdResponse } from "../models/get-product-by-id-response";
 import { PoolConnection } from "mysql2/promise";
 import { GetProductByIdRepository } from "../repositories/get-product-by-id-repository";
-import { ResponseException } from "../../../exceptions/response-exception";
-import { setErrorMessages } from "../../../helpers/error-message";
+import { ResponseException } from "../../../commons/exceptions/response-exception";
+import { setErrorMessages } from "../../../commons/helpers/error-message";
 
 export class GetProductByIdService {
     static async getProductById(requestId: string, id: number): Promise<GetProductByIdResponse> {

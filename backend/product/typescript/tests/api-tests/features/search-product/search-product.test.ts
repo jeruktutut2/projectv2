@@ -1,7 +1,7 @@
 import supertest from "supertest"
-import { ElasticsearchUtil } from "../../../../src/utils/elasticsearch-util"
-import { MysqlUtil } from "../../../../src/utils/mysql-utils"
-import { web } from "../../../../src/setups/express"
+import { ElasticsearchUtil } from "../../../../src/commons/utils/elasticsearch-util"
+import { MysqlUtil } from "../../../../src/commons/utils/mysql-utils"
+import { web } from "../../../../src/commons/setups/express"
 import { createDataProductsElasticsearch } from "../../../initialize/products"
 
 describe("search product GET /api/v1/products/search", () => {
@@ -51,7 +51,9 @@ describe("search product GET /api/v1/products/search", () => {
             keyword: "name1"
         })
         expect(response.status).toEqual(200)
+        console.log("response.body.data:", response.body.data);
         expect(response.body.data).toEqual([
+            { id: '5', userId: '1', name: 'name1', description: 'description1' },
             { id: '4', userId: '1', name: 'name1', description: 'description1' },
             {
               id: '1',

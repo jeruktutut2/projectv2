@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UpdateProductByIdService } from "../services/update-product-by-id-service";
 import { UpdateProductByIdRequest } from "../models/update-product-by-id-request";
-import { setResponse } from "../../../helpers/response-message";
-import { errorHandlerResponse } from "../../../exceptions/error-exception";
+import { setResponse } from "../../../commons/helpers/response-message";
+import { errorHandlerResponse } from "../../../commons/exceptions/error-exception";
 
 export class UpdateProductByIdController {
     static async updateProductById(req: Request, res: Response, next: NextFunction) {

@@ -1,11 +1,11 @@
 import { PoolConnection } from "mysql2/promise";
-import { MysqlUtil } from "../../../utils/mysql-utils";
-import { errorHandler } from "../../../exceptions/error-exception";
+import { MysqlUtil } from "../../../commons/utils/mysql-utils";
+import { errorHandler } from "../../../commons/exceptions/error-exception";
 import { DeleteProductByIdRepository } from "../repositories/delete-product-by-id-repository";
-import { ResponseException } from "../../../exceptions/response-exception";
-import { ElasticsearchUtil } from "../../../utils/elasticsearch-util";
-import { setErrorMessages } from "../../../helpers/error-message";
-import { DataMessage, setDataMessage } from "../../../helpers/data-message";
+import { ResponseException } from "../../../commons/exceptions/response-exception";
+import { ElasticsearchUtil } from "../../../commons/utils/elasticsearch-util";
+import { setErrorMessages } from "../../../commons/helpers/error-message";
+import { DataMessage, setDataMessage } from "../../../commons/helpers/data-message";
 
 export class DeleteProductByIdService {
     static async deleteProductById(requestId: string, id: number): Promise<DataMessage> {

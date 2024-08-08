@@ -1,4 +1,4 @@
-import { MysqlUtil } from "../../../../../src/utils/mysql-utils"
+import { MysqlUtil } from "../../../../../src/commons/utils/mysql-utils"
 import { GetProductByIdService } from "../../../../../src/features/get-product-by-id/services/get-product-by-id-service";
 import { createDataProducts, createTableProducts, deleteTableProducts } from "../../../../initialize/products";
 import { PoolConnection } from "mysql2/promise";

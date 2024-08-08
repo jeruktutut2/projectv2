@@ -1,6 +1,6 @@
-import { web } from "./setups/express";
-import { MysqlUtil } from "./utils/mysql-utils";
-import { ElasticsearchUtil } from "./utils/elasticsearch-util";
+import { web } from "./commons/setups/express";
+import { MysqlUtil } from "./commons/utils/mysql-utils";
+import { ElasticsearchUtil } from "./commons/utils/elasticsearch-util";
 
 const app = web.listen(process.env.PROJECT_PRODUCT_APPLICATION_HOST, async() => {
     try {

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { GetProductByIdService } from "../services/get-product-by-id-service";
 import { GetProductByIdRequest } from "../models/get-product-by-id-request";
-import { setResponse } from "../../../helpers/response-message";
-import { errorHandlerResponse } from "../../../exceptions/error-exception";
+import { setResponse } from "../../../commons/helpers/response-message";
+import { errorHandlerResponse } from "../../../commons/exceptions/error-exception";
 export class GetProductByIdController {
     static async getProductById(req: Request, res: Response, next: NextFunction) {
         const requestId = req.get("X-REQUEST-ID") ?? ""

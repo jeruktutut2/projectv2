@@ -1,11 +1,11 @@
 import { Product } from "../../../../../src/features/create-product/models/create-product";
 import { CreateProductRepository } from "../../../../../src/features/create-product/repositories/create-product-repository";
-import { MysqlUtil } from "../../../../../src/utils/mysql-utils";
+import { MysqlUtil } from "../../../../../src/commons/utils/mysql-utils";
 import { PoolConnection } from 'mysql2/promise';
 import { CreateProductService } from "../../../../../src/features/create-product/services/create-product-service";
 import { CreateProductRequest } from "../../../../../src/features/create-product/models/create-product-request";
 import { createTableProducts, deleteTableProducts, getDataProduct } from "../../../../initialize/products";
-import { ElasticsearchUtil } from "../../../../../src/utils/elasticsearch-util";
+import { ElasticsearchUtil } from "../../../../../src/commons/utils/elasticsearch-util";
 
 describe("create product", () => {
 
@@ -25,8 +25,8 @@ describe("create product", () => {
     beforeEach(() => {
         createProductRequest = {
             userId: 1,
-            name: "name",
-            description: "description",
+            name: "name1",
+            description: "description1",
             stock: 1
         }
     })
