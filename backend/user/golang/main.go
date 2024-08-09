@@ -4,10 +4,10 @@ import (
 	"context"
 	"os"
 	"os/signal"
-	"project-user/configurations"
-	"project-user/helpers"
-	"project-user/setups"
-	"project-user/utils"
+	"project-user/commons/configurations"
+	"project-user/commons/helpers"
+	"project-user/commons/setups"
+	"project-user/commons/utils"
 )
 
 func main() {

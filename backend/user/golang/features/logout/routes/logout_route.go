@@ -1,11 +1,11 @@
 package routes
 
 import (
+	"project-user/commons/middlewares"
+	"project-user/commons/utils"
 	"project-user/features/logout/controllers"
 	"project-user/features/logout/repositories"
 	"project-user/features/logout/services"
-	"project-user/middlewares"
-	"project-user/utils"
 
 	"github.com/labstack/echo/v4"
 )

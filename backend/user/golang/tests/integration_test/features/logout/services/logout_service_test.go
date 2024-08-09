@@ -2,10 +2,10 @@ package services_test
 
 import (
 	"context"
+	"project-user/commons/utils"
 	"project-user/features/login/repositories"
 	"project-user/features/logout/services"
 	"project-user/tests/initialize"
-	"project-user/utils"
 	"testing"
 	"time"
 

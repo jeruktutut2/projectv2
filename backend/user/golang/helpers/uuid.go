@@ -1,18 +1,18 @@
 package helpers
 
-import "github.com/google/uuid"
+// import "github.com/google/uuid"
 
-type UuidHelper interface {
-	String() string
-}
+// type UuidHelper interface {
+// 	String() string
+// }
 
-type UuidHelperImplementation struct {
-}
+// type UuidHelperImplementation struct {
+// }
 
-func NewUuidHelper() UuidHelper {
-	return &UuidHelperImplementation{}
-}
+// func NewUuidHelper() UuidHelper {
+// 	return &UuidHelperImplementation{}
+// }
 
-func (helperImplementation *UuidHelperImplementation) String() string {
-	return uuid.New().String()
-}
+// func (helperImplementation *UuidHelperImplementation) String() string {
+// 	return uuid.New().String()
+// }

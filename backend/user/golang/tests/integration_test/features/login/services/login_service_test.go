@@ -4,12 +4,12 @@ import (
 	"context"
 	"testing"
 
+	"project-user/commons/helpers"
+	"project-user/commons/utils"
 	"project-user/features/login/models"
 	"project-user/features/login/repositories"
 	"project-user/features/login/services"
-	"project-user/helpers"
 	"project-user/tests/initialize"
-	"project-user/utils"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/suite"

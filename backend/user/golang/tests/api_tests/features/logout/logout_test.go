@@ -7,10 +7,10 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"project-user/commons/setups"
+	"project-user/commons/utils"
 	"project-user/features/logout/routes"
-	"project-user/setups"
 	"project-user/tests/initialize"
-	"project-user/utils"
 	"testing"
 	"time"
 

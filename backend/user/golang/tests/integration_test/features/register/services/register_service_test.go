@@ -2,12 +2,12 @@ package services_test
 
 import (
 	"context"
+	"project-user/commons/helpers"
+	"project-user/commons/utils"
 	"project-user/features/register/models"
 	"project-user/features/register/repositories"
 	"project-user/features/register/services"
-	"project-user/helpers"
 	"project-user/tests/initialize"
-	"project-user/utils"
 	"testing"
 	"time"
 

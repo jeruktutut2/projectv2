@@ -3,9 +3,9 @@ package services
 import (
 	"context"
 	"errors"
-	"project-user/exceptions"
+	"project-user/commons/exceptions"
+	"project-user/commons/utils"
 	"project-user/features/login/repositories"
-	"project-user/utils"
 
 	"github.com/redis/go-redis/v9"
 )

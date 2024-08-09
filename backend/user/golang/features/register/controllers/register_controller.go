@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"net/http"
-	"project-user/exceptions"
+	"project-user/commons/exceptions"
+	"project-user/commons/helpers"
+	"project-user/commons/middlewares"
 	"project-user/features/register/models"
 	"project-user/features/register/services"
-	"project-user/helpers"
-	"project-user/middlewares"
 	"time"
 
 	"github.com/labstack/echo/v4"
