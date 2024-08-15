@@ -38,3 +38,19 @@ source .venv/bin/activate
 export PYTHONPATH=$(pwd):$PYTHONPATH
 <!-- pytest tests/features/create_order/services/create_order_test.py -->
 pytest -s tests/integration_tests/features/create_order/services/test_create_order.py
+pytest -s tests/integration_tests/features/get_order/services/test_get_order.py
+pytest -s tests/integration_tests/features/update_order/services/test_update_order.py
+pytest -s tests/integration_tests/features/delete_order/services/test_delete_order.py
+
+<!-- failed doing unit test when wrapping method in mysqlutil and test it in test_success -->
+pytest -s tests/unit_tests/features/create_order/services/test_create_order.py
+
+<!-- ## install fastapi -->
+<!-- pip install fastapi uvicorn -->
+<!-- pip install httpx pytest -->
+
+## instal flask
+eval "$(pyenv init -)"
+source .venv/bin/activate
+export PYTHONPATH=$(pwd):$PYTHONPATH
+pip install Flask

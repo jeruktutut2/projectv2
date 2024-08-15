@@ -1,5 +1,5 @@
 class OrderItemRepository:
-    # @staticmethod
+    
     @classmethod
     def create_many(self, cursor, order_items):
         query = "INSERT INTO order_items(order_id, product_id, price, quantity, total) VALUES (%s, %s, %s, %s, %s);"

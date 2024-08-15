@@ -1,4 +1,4 @@
-from features.create_order.models.product import Product
+from features.update_order.models.product import Product
 
 class ProductRepository:
 
@@ -9,7 +9,6 @@ class ProductRepository:
         for id in ids:
             placeholders += "%s,"
             params.append(id)
-
         placeholders = placeholders[:-1]
         query = "SELECT id, name, description, price FROM products WHERE id IN ("+placeholders+")"
         cursor.execute(query, params)

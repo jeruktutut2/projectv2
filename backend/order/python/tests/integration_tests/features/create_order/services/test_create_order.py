@@ -21,9 +21,13 @@ def setup_module():
     connection = MysqlUtil.get_connection()
     global cursor
     cursor = connection.cursor()
+    # cursor = MysqlUtil.get_cursor(connection)
     yield
     cursor.close()
+    # MysqlUtil.close_cursor(cursor)
     connection.close()
+    # MysqlUtil.close_connection(connection)
+
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_function(request):
@@ -40,8 +44,12 @@ def test_validation():
     assert e.value.message == "validation error"
 
 def test_internal_server_error_no_table():
+    # MysqlUtil.start_transaction(connection)
+    connection.start_transaction()
     delete_table_order_items(cursor)
     delete_table_orders(cursor)
+    # MysqlUtil.commit(connection)
+    connection.commit()
     
     with pytest.raises(ResponseException) as e:
         CreateOrderService.crate_order(requestId, request, now_unix_milli)
@@ -49,23 +57,30 @@ def test_internal_server_error_no_table():
     assert e.value.message == "internal server error"
 
 def test_success():
+    # MysqlUtil.start_transaction(connection)
+    connection.start_transaction()
     delete_table_order_items(cursor)
     delete_table_orders(cursor)
     create_table_orders(cursor)
     create_table_order_items(cursor)
+    # MysqlUtil.commit(connection)
+    connection.commit()
+    # got this error when trying to wrap mysql connection into method, ReferenceError: weakly-referenced object no longer exists
     result = CreateOrderService.crate_order(requestId, request, now_unix_milli)
-    assert result.get("id") == 1
-    assert result.get("total") == Decimal('3.00')
-    assert len(result.get("orderItems")) == 2
-    order_items = result.get("orderItems")
-    assert order_items[0].get("productId") == 1
-    assert order_items[0].get("price") == Decimal('1.00')
-    assert order_items[0].get("quantity") == 1
-    assert order_items[0].get("total") == Decimal('1.00')
-    assert order_items[1].get("productId") == 2
-    assert order_items[1].get("price") == Decimal('1.00')
-    assert order_items[1].get("quantity") == 2
-    assert order_items[1].get("total") == Decimal('2.00')
+    assert result.id == 1
+    assert result.total == Decimal('3.00')
+    assert len(result.order_items) == 2
+    order_items = result.order_items
+    # print("order_items:", order_items)
+    # print("order_items[0].id:",order_items[0].id)
+    assert order_items[0].product_id == 1
+    assert order_items[0].price == Decimal('1.00')
+    assert order_items[0].quantity == 1
+    assert order_items[0].total == Decimal('1.00')
+    assert order_items[1].product_id == 2
+    assert order_items[1].price == Decimal('1.00')
+    assert order_items[1].quantity == 2
+    assert order_items[1].total == Decimal('2.00')
 
     orders = get_data_orders(cursor)
     assert len(orders) == 1
