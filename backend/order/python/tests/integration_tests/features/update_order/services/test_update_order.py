@@ -42,11 +42,9 @@ def test_internal_server_error_no_table():
     connection.start_transaction()
     delete_table_order_items(cursor)
     delete_table_orders(cursor)
-    # delete_table_order_items(cursor)
     connection.commit()
     with pytest.raises(ResponseException) as e:
         UpdateOrderService.update_order(request_id, request)
-    # print("e:", e)
     e.value.status == 500
     e.value.message == "internal server error"
 
@@ -60,7 +58,6 @@ def test_success():
     create_data_order_items(cursor)
     connection.commit()
     result = UpdateOrderService.update_order(request_id, request)
-    # print("result:", result)
     assert result.id == 1
     assert result.total == Decimal(6.0)
     assert len(result.order_items) == 3

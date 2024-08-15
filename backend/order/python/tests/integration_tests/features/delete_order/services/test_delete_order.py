@@ -49,5 +49,4 @@ def test_success():
     create_data_order_items(cursor)
     connection.commit()
     result = DeleteOrderService.delete_order(request_id, id)
-    # print("result:", result)
     assert result.message == "succesfully deleted order"
