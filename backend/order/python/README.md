@@ -45,6 +45,8 @@ pytest -s tests/integration_tests/features/delete_order/services/test_delete_ord
 <!-- failed doing unit test when wrapping method in mysqlutil and test it in test_success -->
 pytest -s tests/unit_tests/features/create_order/services/test_create_order.py
 
+pytest -s tests/api_tests/features/create_order/test_create_order.py
+
 <!-- ## install fastapi -->
 <!-- pip install fastapi uvicorn -->
 <!-- pip install httpx pytest -->

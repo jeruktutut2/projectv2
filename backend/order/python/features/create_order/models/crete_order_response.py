@@ -13,7 +13,6 @@ class OrderItemsCreateOrderResponse(BaseModel):
     id: int = Field(..., alias="id")
     order_id: int = Field(..., alias="orderId")
     product_id: int = Field(..., alias="productId")
-    # order_id: int
     price: Decimal = Field(..., alias="price")
     quantity: int = Field(..., alias="quantity")
     total: Decimal = Field(..., alias="total")
