@@ -12,8 +12,6 @@ def create_table_orders(cursor):
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
         """
         cursor.execute(query)
-        # print("create_table_orders cursor.rowcount", cursor.rowcount)
-        # if cursor.rowcount == 1:
         print("successfully create table orders")
     except Exception as e:
         print("error when creating table orders", e)
@@ -22,7 +20,6 @@ def create_data_orders(cursor):
     try:
         query = "INSERT INTO orders(id, user_id, total, paid, created_at) VALUES (1, 1, 10, 0, 1722390867657), (2, 2, 20, 0, 1722390867657), (3, 3, 30, 0, 1722390867657);"
         cursor.execute(query)
-        # print("create_data_orders cursor.rowcount:", cursor.rowcount)
         if cursor.rowcount == 3:
             print("successfully create data orders")
     except Exception as e:
@@ -37,8 +34,6 @@ def delete_table_orders(cursor):
     try:
         query = "DROP TABLE IF EXISTS orders;"
         cursor.execute(query)
-        # print("delete_table_orders cursor.rowcount:", cursor, cursor.rowcount)
-        # if cursor.rowcount == -1:
         print("successfully delete table orders")
     except Exception as e:
         print("error when deleting table orders", e)

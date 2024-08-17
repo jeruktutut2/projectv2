@@ -12,6 +12,6 @@ class CreateOrderController:
             request_body = request.json
             now_unix_milli = round(time.time() * 1000)
             createOrder = CreateOrderService.crate_order(request_id, request_body, now_unix_milli)
-            return jsonify({"data": createOrder.model_dump_json(by_alias=True), "errors": None}), 201
+            return jsonify({"data": createOrder.model_dump(by_alias=True), "errors": None}), 201
         except Exception as e:
             return error_handler_response(e)

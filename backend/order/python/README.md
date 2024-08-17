@@ -46,13 +46,31 @@ pytest -s tests/integration_tests/features/delete_order/services/test_delete_ord
 pytest -s tests/unit_tests/features/create_order/services/test_create_order.py
 
 pytest -s tests/api_tests/features/create_order/test_create_order.py
-
-<!-- ## install fastapi -->
-<!-- pip install fastapi uvicorn -->
-<!-- pip install httpx pytest -->
+pytest -s tests/api_tests/features/get_order/test_get_order.py
+pytest -s tests/api_tests/features/update_order/test_update_order.py
+pytest -s tests/api_tests/features/delete_order/test_delete_order.py
 
 ## instal flask
 eval "$(pyenv init -)"
 source .venv/bin/activate
 export PYTHONPATH=$(pwd):$PYTHONPATH
 pip install Flask
+
+## run application
+eval "$(pyenv init -)"
+source .venv/bin/activatepython app.py
+export PYTHONPATH=$(pwd):$PYTHONPATH
+python main.py
+
+## run curl test
+chmod +x test_create_order.sh
+./test_create_order.sh
+
+chmod +x test_get_order.sh
+./test_get_order.sh
+
+chmod +x test_update_order.sh
+./test_update_order.sh
+
+chmod +x test_delete_order.sh
+./test_delete_order.sh
