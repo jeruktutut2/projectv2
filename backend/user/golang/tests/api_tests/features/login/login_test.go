@@ -3,6 +3,7 @@ package login_test
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -38,6 +39,7 @@ func TestLoginTestSuite(t *testing.T) {
 }
 
 func (sut *LoginTestSuite) SetupSuite() {
+	fmt.Println()
 	sut.T().Log("SetupSuite")
 	sut.mysqlUtil = utils.NewMysqlConnection("root", "12345", "localhost:3309", "user", 10, 10, 10, 10)
 	sut.redisUtil = utils.NewRedisConnection("localhost", "6380", 0)
@@ -63,7 +65,7 @@ func (sut *LoginTestSuite) BeforeTest(suiteName, testName string) {
 	sut.T().Log("BeforeTest: " + suiteName + " " + testName)
 }
 
-func (sut *LoginTestSuite) TestLoginRedisRepositoryDelWithSessionIdInternalServerError() {
+func (sut *LoginTestSuite) Test1LoginRedisRepositoryDelWithSessionIdInternalServerError() {
 	sut.T().Log("TestLoginRedisRepositoryDelWithSessionIdInternalServerError")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -93,7 +95,7 @@ func (sut *LoginTestSuite) TestLoginRedisRepositoryDelWithSessionIdInternalServe
 	sut.Equal(errorMessage1["message"], "is required")
 }
 
-func (sut *LoginTestSuite) TestLoginUserRepositoryFindByEmailInternalServerError() {
+func (sut *LoginTestSuite) Test2LoginUserRepositoryFindByEmailInternalServerError() {
 	sut.T().Log("TestLoginUserRepositoryFindByEmailInternalServerError")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -119,7 +121,7 @@ func (sut *LoginTestSuite) TestLoginUserRepositoryFindByEmailInternalServerError
 	sut.Equal(errorMessage0["message"], "internal server error")
 }
 
-func (sut *LoginTestSuite) TestLoginUserRepositoryFindByEmailBadRequestWrongEmailOrPasswordError() {
+func (sut *LoginTestSuite) Test3LoginUserRepositoryFindByEmailBadRequestWrongEmailOrPasswordError() {
 	sut.T().Log("TestLoginUserRepositoryFindByEmailBadRequestWrongEmailOrPasswordError")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -146,7 +148,7 @@ func (sut *LoginTestSuite) TestLoginUserRepositoryFindByEmailBadRequestWrongEmai
 	sut.Equal(errorMessage0["message"], "wrong email or password")
 }
 
-func (sut *LoginTestSuite) TestLoginBcryptCompareHashAndPasswordBadRequestWrongEmailOrPasswordError() {
+func (sut *LoginTestSuite) Test4LoginBcryptCompareHashAndPasswordBadRequestWrongEmailOrPasswordError() {
 	sut.T().Log("TestLoginBcryptCompareHashAndPasswordBadRequestWrongEmailOrPasswordError")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -178,7 +180,7 @@ func (sut *LoginTestSuite) TestLoginBcryptCompareHashAndPasswordBadRequestWrongE
 	sut.Equal(errorMessage0["message"], "wrong email or password")
 }
 
-func (sut *LoginTestSuite) TestLoginUserPermissionRepositoryFindByUserIdInternalServerError() {
+func (sut *LoginTestSuite) Test5LoginUserPermissionRepositoryFindByUserIdInternalServerError() {
 	sut.T().Log("TestLoginUserPermissionRepositoryFindByUserIdInternalServerError")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -206,7 +208,7 @@ func (sut *LoginTestSuite) TestLoginUserPermissionRepositoryFindByUserIdInternal
 	sut.Equal(errorMessage0["message"], "internal server error")
 }
 
-func (sut *LoginTestSuite) TestLoginSuccess() {
+func (sut *LoginTestSuite) Test6LoginSuccess() {
 	sut.T().Log("TestLoginSuccess")
 	initialize.DropTableUserPermission(sut.mysqlUtil.GetDb(), sut.ctx)
 	initialize.DropTablePermission(sut.mysqlUtil.GetDb(), sut.ctx)
@@ -241,6 +243,7 @@ func (sut *LoginTestSuite) AfterTest(suiteName, testName string) {
 
 func (sut *LoginTestSuite) TearDownTest() {
 	sut.T().Log("TearDownTest")
+	fmt.Println()
 }
 
 func (sut *LoginTestSuite) TearDownSuite() {

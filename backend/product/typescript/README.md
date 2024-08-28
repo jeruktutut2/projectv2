@@ -1,4 +1,16 @@
-# Product
+# Product  
+
+## application  
+this service provide create, get, update, search and delete product  
+
+## stack  
+- typescript  
+- express: http framework  
+- mysql: store product data  
+- elasticsearch: store product data to be searched  
+
+## run  
+npm run start  
 
 ## init project
 npm init  
@@ -95,9 +107,6 @@ npm i ioredis
 ## supertest
 npm install --save-dev supertest @types/supertest  
 https://www.npmjs.com/package/supertest  
-
-## run
-npm run start  
 
 ## run curl test
 chmod +x create-product-curl.sh  

@@ -1,7 +1,18 @@
 # USER  
 
-## Run in docker  
+## application  
+this service is to provide user management including login, register and logout  
 
+## stack  
+- go  
+- echo: http framework  
+- mysql: store user data  
+- redis: store user session  
+
+## run application  
+go run main.go  
+
+## Run in docker  
 ## crate network  
 docker network create project  
 docker network ls  
@@ -28,6 +39,19 @@ docker build -t project-backend-user:1.0.0 .
 docker run --name project-user-container --network project -p 10001:10001 project-user:1.0.0
 docker run --name project-user-container -p 10001:10001 project-user:1.0.0  
 if you want to use bridge network (default), you no need to put --network project  
+
+## run test
+go test -v tests/integration_tests/features/register/services/register_service_test.go  
+go test -v tests/integration_tests/features/login/services/login_service_test.go  
+go test -v tests/integration_tests/features/logout/services/logout_service_test.go  
+
+go test -v tests/unit_tests/features/register/services/register_service_test.go  
+go test -v tests/unit_tests/features/login/services/login_service_test.go  
+go test -v tests/unit_tests/features/logout/services/logout_service_test.go  
+
+go test -v tests/api_tests/features/register/register_test.go  
+go test -v tests/api_tests/features/login/login_test.go  
+go test -v tests/api_tests/features/logout/logout_test.go   
 
 ## test grpc golang
 https://github.com/grpc/grpc-go/issues/1786  

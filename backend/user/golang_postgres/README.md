@@ -1,9 +1,16 @@
-# GOLANG POSTGRES
+# USER  
 
-<!-- ## install postgres -->
-<!-- docker pull postgres   -->
-<!-- docker pull postgres:13.16   -->
-<!-- docker run --name project-postgres -e POSTGRES_PASSWORD=12345 POSTGRES_DB=project_users -d postgres   -->
+## application  
+this service provide login, register, logout  
+
+## stack  
+- go  
+- echo: http framework  
+- postgres: store user data  
+- redis: store user session  
+
+## run application  
+go run main.go  
 
 ## install postgres
 go get github.com/jackc/pgx/v5  

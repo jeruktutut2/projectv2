@@ -1,6 +1,20 @@
-# Order
+# Order  
 
-## python
+## application  
+this service provide create, get, update and delete order  
+
+## stack  
+- python  
+- flask: framework  
+- mysql: store order data  
+
+## run application  
+eval "$(pyenv init -)"  
+source .venv/bin/activatepython app.py  
+export PYTHONPATH=$(pwd):$PYTHONPATH  
+python main.py  
+
+## python  
 install pyenv: brew install pyenv  
 install python: pyenv install 3.12.4  
 set python: pyenv global 3.12.4  
@@ -16,51 +30,45 @@ which python
 python3 -m pip install --upgrade pip  
 python3 -m pip --version  
 
-## install mysql connector
+## install mysql connector  
 pip install mysql-connector-python  
 
-## install pydantic
+## install pydantic  
 eval "$(pyenv init -)"  
 source .venv/bin/activate  
 pip install pydantic  
 
-## install pytest
+## install pytest  
 eval "$(pyenv init -)"  
 source .venv/bin/activate  
 pip install -U pytest  
 
-## add pythonpath
-export PYTHONPATH=$(pwd):$PYTHONPATH
+## add pythonpath  
+export PYTHONPATH=$(pwd):$PYTHONPATH  
 
-## run test pytest
-eval "$(pyenv init -)"
-source .venv/bin/activate
-export PYTHONPATH=$(pwd):$PYTHONPATH
+## run test pytest  
+eval "$(pyenv init -)"  
+source .venv/bin/activate  
+export PYTHONPATH=$(pwd):$PYTHONPATH  
 <!-- pytest tests/features/create_order/services/create_order_test.py -->
-pytest -s tests/integration_tests/features/create_order/services/test_create_order.py
-pytest -s tests/integration_tests/features/get_order/services/test_get_order.py
-pytest -s tests/integration_tests/features/update_order/services/test_update_order.py
-pytest -s tests/integration_tests/features/delete_order/services/test_delete_order.py
+pytest -s tests/integration_tests/features/create_order/services/test_create_order.py  
+pytest -s tests/integration_tests/features/get_order/services/test_get_order.py  
+pytest -s tests/integration_tests/features/update_order/services/test_update_order.py  
+pytest -s tests/integration_tests/features/delete_order/services/test_delete_order.py  
 
 <!-- failed doing unit test when wrapping method in mysqlutil and test it in test_success -->
-pytest -s tests/unit_tests/features/create_order/services/test_create_order.py
+pytest -s tests/unit_tests/features/create_order/services/test_create_order.py  
 
-pytest -s tests/api_tests/features/create_order/test_create_order.py
-pytest -s tests/api_tests/features/get_order/test_get_order.py
-pytest -s tests/api_tests/features/update_order/test_update_order.py
-pytest -s tests/api_tests/features/delete_order/test_delete_order.py
+pytest -s tests/api_tests/features/create_order/test_create_order.py  
+pytest -s tests/api_tests/features/get_order/test_get_order.py  
+pytest -s tests/api_tests/features/update_order/test_update_order.py  
+pytest -s tests/api_tests/features/delete_order/test_delete_order.py  
 
-## instal flask
-eval "$(pyenv init -)"
-source .venv/bin/activate
-export PYTHONPATH=$(pwd):$PYTHONPATH
-pip install Flask
-
-## run application
-eval "$(pyenv init -)"
-source .venv/bin/activatepython app.py
-export PYTHONPATH=$(pwd):$PYTHONPATH
-python main.py
+## instal flask  
+eval "$(pyenv init -)"  
+source .venv/bin/activate  
+export PYTHONPATH=$(pwd):$PYTHONPATH  
+pip install Flask  
 
 ## run curl test
 chmod +x test_create_order.sh
