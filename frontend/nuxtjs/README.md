@@ -77,5 +77,11 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 ## create project  
 npx nuxi@latest init <project-name>  
 
-## add tailwind
+## add tailwind  
 npx nuxi@latest module add tailwindcss  
+
+## install axios  
+npm install axios  
+
+## setup proxy  
+https://www.youtube.com/watch?v=J4E5uYz5AY8  
