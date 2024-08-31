@@ -59,13 +59,13 @@
                             class="h-[40px] w-full outline-none text-[0.80rem] text-stone-950 px-4 rounded-[3px] mt-2 border-2 border-[#717171]"/>
                             <p class="text-red-300 text-[0.60rem]" v-if="passwordErrorMessage !== ''">{{ passwordErrorMessage }}</p>
                 </div>
-                <a href="#" className="text-gray-500 no-underline hover:underline inline-flex mt-2 text-[0.70rem]">Forgot Password</a>
+                <a href="#" class="text-gray-500 no-underline hover:underline inline-flex mt-2 text-[0.70rem]">Forgot Password</a>
                 <button type="button"
                         class="h-[40px] w-full outline-none border-0 text-[0.80rem] font-semibold rounded-[3px] mt-1 text-white cursor-pointer bg-blue-500 hover:bg-blue-400 active:bg-blue-600 disabled:bg-blue-700"
                         @click="login">Login</button>
-                <div className="text-center text-[0.70rem] mt-2">
+                <div class="text-center text-[0.70rem] mt-2">
                     Don&apos;t have an account? &nbsp;
-                    <a href="#" className="text-gray-500 no-underline hover:underline">Sign Up</a>
+                    <a href="#" class="text-gray-500 no-underline hover:underline">Sign Up</a>
                 </div>
             </div>
         </div>
